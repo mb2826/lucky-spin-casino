@@ -8,13 +8,17 @@
 </head>
 <body>
 <div class="bg-overlay"></div>
+<div class="grid-lines"></div>
 <header>
   <div class="logo">🍀 Lucky Spin Casino</div>
   <div class="balance-bar">
-    Balance: <span id="balance">1000</span> 🪙
+    <span class="bal-label">BALANCE</span>
+    <span id="balance">1000</span>
+    <span class="coin-icon">🪙</span>
     <button id="add-credits" class="small-btn">+500</button>
   </div>
   <nav>
+    <a href="#" data-game="coinflip" class="active">Coin Flip</a>
     <a href="#" data-game="slots">Slots</a>
     <a href="#" data-game="roulette">Roulette</a>
     <a href="#" data-game="blackjack">Blackjack</a>
@@ -23,9 +27,53 @@
 </header>
 
 <main>
+  <!-- COIN FLIP -->
+  <section id="game-coinflip" class="game-panel active">
+    <h2 class="neon-title">Coin Flip</h2>
+    <p class="subtitle">Call it. Double or nothing.</p>
+    <div class="coin-arena">
+      <div class="coin-stage">
+        <div class="coin" id="coin">
+          <div class="coin-face heads">H</div>
+          <div class="coin-face tails">T</div>
+        </div>
+        <div class="coin-glow"></div>
+      </div>
+      <div class="flip-controls">
+        <div class="side-picker">
+          <button class="side-btn" data-side="heads" id="pick-heads">
+            <span class="side-icon">👑</span>
+            <span>HEADS</span>
+          </button>
+          <button class="side-btn" data-side="tails" id="pick-tails">
+            <span class="side-icon">⚡</span>
+            <span>TAILS</span>
+          </button>
+        </div>
+        <div class="bet-row">
+          <label>BET</label>
+          <input type="number" id="flip-bet" value="25" min="1" max="1000">
+          <div class="quick-bets">
+            <button class="qbet" data-amt="10">10</button>
+            <button class="qbet" data-amt="50">50</button>
+            <button class="qbet" data-amt="100">100</button>
+            <button class="qbet" data-amt="half">½</button>
+            <button class="qbet" data-amt="max">MAX</button>
+          </div>
+        </div>
+        <button id="flip-btn" class="cta flip-cta">FLIP COIN</button>
+        <div id="flip-result" class="result-msg"></div>
+        <div class="streak-bar">
+          Streak: <span id="streak">0</span>
+          <span class="streak-fire" id="streak-fire"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SLOTS -->
-  <section id="game-slots" class="game-panel active">
-    <h2>Neon Reels</h2>
+  <section id="game-slots" class="game-panel">
+    <h2 class="neon-title">Neon Reels</h2>
     <div class="slot-machine">
       <div class="reels">
         <div class="reel" id="reel1">🍒</div>
@@ -42,7 +90,7 @@
 
   <!-- ROULETTE -->
   <section id="game-roulette" class="game-panel">
-    <h2>European Roulette</h2>
+    <h2 class="neon-title">European Roulette</h2>
     <div class="roulette-wrap">
       <div class="wheel" id="wheel">🎯</div>
       <div class="roulette-controls">
@@ -62,7 +110,7 @@
 
   <!-- BLACKJACK -->
   <section id="game-blackjack" class="game-panel">
-    <h2>Blackjack</h2>
+    <h2 class="neon-title">Blackjack</h2>
     <div class="bj-table">
       <div class="hand">
         <h3>Dealer <span id="dealer-score"></span></h3>
@@ -83,7 +131,6 @@
   </section>
 </main>
 
-<!-- Login Modal -->
 <div id="login-modal" class="modal">
   <div class="modal-content">
     <span class="close" id="close-login">&times;</span>
