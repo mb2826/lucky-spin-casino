@@ -34,7 +34,6 @@
 </header>
 
 <main>
-  <!-- LOBBY -->
   <section id="game-lobby" class="game-panel active lobby-panel">
     <div class="lobby-hero">
       <h1 class="neon-title">6-7 Casino</h1>
@@ -42,50 +41,24 @@
     </div>
     <div class="game-grid" id="game-grid">
       <button class="game-card" data-open="coinflip">
-        <div class="card-art coinflip-art">
-          <div class="art-coin">H</div>
-        </div>
-        <div class="card-body">
-          <span class="card-name">Coin Flip</span>
-          <span class="card-desc">Heads or Tails · x2</span>
-        </div>
+        <div class="card-art coinflip-art"><div class="art-coin">H</div></div>
+        <div class="card-body"><span class="card-name">Coin Flip</span><span class="card-desc">Heads or Tails · x2</span></div>
       </button>
       <button class="game-card" data-open="slots">
-        <div class="card-art slots-art">
-          <span>🍒</span><span>7️⃣</span><span>💎</span>
-        </div>
-        <div class="card-body">
-          <span class="card-name">Neon Reels</span>
-          <span class="card-desc">3-reel slots · jackpots</span>
-        </div>
+        <div class="card-art slots-art"><span>🍒</span><span>7️⃣</span><span>💎</span></div>
+        <div class="card-body"><span class="card-name">Neon Reels</span><span class="card-desc">3-reel slots · jackpots</span></div>
       </button>
       <button class="game-card" data-open="roulette">
-        <div class="card-art roulette-art">
-          <div class="art-wheel"></div>
-        </div>
-        <div class="card-body">
-          <span class="card-name">Roulette</span>
-          <span class="card-desc">European · red/black/0</span>
-        </div>
+        <div class="card-art roulette-art"><div class="art-wheel"></div></div>
+        <div class="card-body"><span class="card-name">Roulette</span><span class="card-desc">European · red/black/0</span></div>
       </button>
       <button class="game-card" data-open="blackjack">
-        <div class="card-art bj-art">
-          <span class="mini-card">A♠</span>
-          <span class="mini-card red">K♥</span>
-        </div>
-        <div class="card-body">
-          <span class="card-name">Blackjack</span>
-          <span class="card-desc">Beat the dealer · 21</span>
-        </div>
+        <div class="card-art bj-art"><span class="mini-card">A♠</span><span class="mini-card red">K♥</span></div>
+        <div class="card-body"><span class="card-name">Blackjack</span><span class="card-desc">Beat the dealer · 21</span></div>
       </button>
       <button class="game-card" data-open="ranks">
-        <div class="card-art ranks-art">
-          <span>🥉</span><span>🥇</span><span>🌌</span>
-        </div>
-        <div class="card-body">
-          <span class="card-name">Rank Ladder</span>
-          <span class="card-desc">Bronze → Unreal · rewards</span>
-        </div>
+        <div class="card-art ranks-art"><span>🥉</span><span>🥇</span><span>🌌</span></div>
+        <div class="card-body"><span class="card-name">Rank Ladder</span><span class="card-desc">Bronze → Unreal · rewards</span></div>
       </button>
     </div>
     <p class="lobby-foot">100€ or 100B DonutSMP at Unreal · cash coming soon</p>
@@ -121,7 +94,7 @@
         </div>
         <div class="bet-row">
           <label>BET</label>
-          <input type="number" id="flip-bet" value="25" min="1" max="1000">
+          <input type="number" id="flip-bet" value="25" min="1">
           <div class="quick-bets">
             <button class="qbet" data-amt="10">10</button>
             <button class="qbet" data-amt="50">50</button>
@@ -146,7 +119,7 @@
         <div class="reel" id="reel3">🔔</div>
       </div>
       <div class="slot-controls">
-        <label>Bet: <input type="number" id="slot-bet" value="10" min="1" max="500"></label>
+        <label>Bet: <input type="number" id="slot-bet" value="10" min="1"></label>
         <button id="spin-btn" class="cta">SPIN</button>
       </div>
       <div id="slot-result" class="result-msg"></div>
@@ -165,7 +138,7 @@
           <button class="bet-btn" data-bet="odd">Odd (x2)</button>
           <button class="bet-btn" data-bet="even">Even (x2)</button>
         </div>
-        <label>Bet: <input type="number" id="roulette-bet" value="10" min="1" max="500"></label>
+        <label>Bet: <input type="number" id="roulette-bet" value="10" min="1"></label>
         <button id="spin-roulette" class="cta">SPIN WHEEL</button>
         <div id="roulette-result" class="result-msg"></div>
       </div>
@@ -178,7 +151,7 @@
       <div class="hand"><h3>Dealer <span id="dealer-score"></span></h3><div id="dealer-cards" class="cards"></div></div>
       <div class="hand"><h3>You <span id="player-score"></span></h3><div id="player-cards" class="cards"></div></div>
       <div class="bj-controls">
-        <label>Bet: <input type="number" id="bj-bet" value="20" min="1" max="500"></label>
+        <label>Bet: <input type="number" id="bj-bet" value="20" min="1"></label>
         <button id="bj-deal" class="cta">Deal</button>
         <button id="bj-hit" class="small-btn" disabled>Hit</button>
         <button id="bj-stand" class="small-btn" disabled>Stand</button>
