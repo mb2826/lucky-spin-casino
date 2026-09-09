@@ -162,7 +162,7 @@
     btn.onclick = () => {
       const amt = btn.dataset.amt;
       if (amt === 'half') flipBetInput.value = Math.max(1, Math.floor(balance / 2));
-      else if (amt === 'max') flipBetInput.value = Math.min(balance, 1000);
+      else if (amt === 'max') flipBetInput.value = balance;
       else flipBetInput.value = amt;
     };
   });
