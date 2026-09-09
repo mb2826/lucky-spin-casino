@@ -38,6 +38,21 @@ header {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   letter-spacing: 1px;
 }
+.rank-chip {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+  padding: 0.3rem 0.7rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700;
+  min-width: 120px;
+}
+#rank-icon { font-size: 1.1rem; }
+#rank-name { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; letter-spacing: 0.5px; }
+.rank-xp-bar {
+  flex: 1; height: 4px; background: #222; border-radius: 2px; overflow: hidden; min-width: 40px;
+}
+#rank-xp-fill {
+  height: 100%; width: 0%; background: linear-gradient(90deg, #ffd700, #ff6b00);
+  transition: width 0.4s ease;
+}
 .balance-bar {
   display: flex; align-items: center; gap: 0.5rem;
   background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.25);
@@ -79,24 +94,47 @@ nav a.active {
 }
 .subtitle { color: #777; margin-bottom: 1.8rem; font-size: 0.95rem; }
 
-/* ===== COIN FLIP ===== */
+/* RANK LADDER */
+.rank-ladder { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
+.rank-row {
+  display: flex; align-items: center; gap: 0.8rem;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 0.75rem 1rem; text-align: left;
+  transition: border-color 0.2s;
+}
+.rank-row.current {
+  border-color: #ffd700; background: rgba(255,215,0,0.08);
+  box-shadow: 0 0 20px rgba(255,215,0,0.15);
+}
+.rank-row.locked { opacity: 0.45; }
+.rank-row .r-icon { font-size: 1.6rem; width: 2rem; text-align: center; }
+.rank-row .r-info { flex: 1; }
+.rank-row .r-name { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.95rem; }
+.rank-row .r-xp { font-size: 0.75rem; color: #888; }
+.rank-row .r-reward { font-size: 0.8rem; color: #ffd700; font-weight: 600; }
+.rank-reward-box {
+  background: linear-gradient(135deg, rgba(255,45,149,0.15), rgba(255,215,0,0.1));
+  border: 2px solid rgba(255,215,0,0.35); border-radius: 16px; padding: 1.5rem;
+}
+.rank-reward-box h3 { font-family: 'Orbitron', sans-serif; color: #ffd700; margin-bottom: 0.5rem; }
+.rank-reward-box p { margin: 0.3rem 0; }
+.coming-soon {
+  display: inline-block; margin-top: 0.6rem; padding: 0.3rem 0.8rem;
+  background: rgba(255,45,149,0.2); border: 1px solid #ff2d95; border-radius: 6px;
+  color: #ff6b9d; font-size: 0.85rem; font-weight: 700;
+}
+.rank-hint { color: #666; font-size: 0.8rem; margin-top: 0.8rem; }
+
+/* COIN FLIP */
 .coin-arena {
   background: linear-gradient(180deg, rgba(20,20,35,0.9), rgba(10,10,20,0.95));
   border: 1px solid rgba(255,215,0,0.2);
   border-radius: 24px; padding: 2.5rem 1.5rem;
   box-shadow: 0 0 60px rgba(255,50,150,0.08), inset 0 1px 0 rgba(255,255,255,0.05);
 }
-.coin-stage {
-  position: relative; width: 180px; height: 180px; margin: 0 auto 2rem;
-  perspective: 800px;
-}
-.coin {
-  width: 100%; height: 100%; position: relative;
-  transform-style: preserve-3d; transition: transform 0.1s;
-}
-.coin.flipping {
-  animation: coinFlip 2.2s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
-}
+.coin-stage { position: relative; width: 180px; height: 180px; margin: 0 auto 2rem; perspective: 800px; }
+.coin { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+.coin.flipping { animation: coinFlip 2.2s cubic-bezier(0.2, 0.7, 0.3, 1) forwards; }
 @keyframes coinFlip {
   0%   { transform: rotateY(0deg) scale(1); }
   20%  { transform: rotateY(720deg) scale(1.15) translateY(-30px); }
@@ -111,23 +149,14 @@ nav a.active {
   backface-visibility: hidden;
   box-shadow: 0 0 40px rgba(255,215,0,0.4), inset 0 0 30px rgba(0,0,0,0.3);
 }
-.heads {
-  background: radial-gradient(circle at 35% 35%, #ffe566, #ffb700 40%, #c47800);
-  color: #3a2000; border: 4px solid #ffd700;
-}
-.tails {
-  background: radial-gradient(circle at 35% 35%, #e0e8ff, #7a9cff 40%, #3a5acc);
-  color: #0a1535; border: 4px solid #8af; transform: rotateY(180deg);
-}
+.heads { background: radial-gradient(circle at 35% 35%, #ffe566, #ffb700 40%, #c47800); color: #3a2000; border: 4px solid #ffd700; }
+.tails { background: radial-gradient(circle at 35% 35%, #e0e8ff, #7a9cff 40%, #3a5acc); color: #0a1535; border: 4px solid #8af; transform: rotateY(180deg); }
 .coin-glow {
   position: absolute; inset: -20px; border-radius: 50%;
   background: radial-gradient(circle, rgba(255,215,0,0.25), transparent 70%);
   animation: pulseGlow 2s ease-in-out infinite; pointer-events: none;
 }
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.08); }
-}
+@keyframes pulseGlow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
 
 .side-picker { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; }
 .side-btn {
@@ -140,16 +169,11 @@ nav a.active {
 .side-btn:hover { border-color: rgba(255,215,0,0.4); color: #fff; }
 .side-btn.selected {
   border-color: #ffd700; background: rgba(255,215,0,0.12);
-  color: #ffd700; box-shadow: 0 0 24px rgba(255,215,0,0.25);
-  transform: scale(1.04);
+  color: #ffd700; box-shadow: 0 0 24px rgba(255,215,0,0.25); transform: scale(1.04);
 }
 .side-icon { font-size: 1.8rem; }
-
 .bet-row { margin-bottom: 1.2rem; }
-.bet-row label {
-  display: block; font-size: 0.7rem; letter-spacing: 2px; color: #666;
-  margin-bottom: 0.4rem; font-weight: 700;
-}
+.bet-row label { display: block; font-size: 0.7rem; letter-spacing: 2px; color: #666; margin-bottom: 0.4rem; font-weight: 700; }
 #flip-bet {
   width: 120px; padding: 0.65rem; font-size: 1.2rem; font-weight: 700;
   background: #0c0c16; border: 2px solid rgba(255,215,0,0.3); border-radius: 10px;
@@ -162,25 +186,18 @@ nav a.active {
   font-size: 0.8rem; font-weight: 600; transition: all 0.15s;
 }
 .qbet:hover { background: rgba(255,215,0,0.15); border-color: #ffd700; color: #ffd700; }
-
 .flip-cta {
   width: 100%; max-width: 280px; padding: 1rem 2rem !important;
   font-family: 'Orbitron', sans-serif; font-size: 1.15rem !important;
   letter-spacing: 2px; border-radius: 12px !important;
   background: linear-gradient(135deg, #ff2d95, #ff6b00, #ffd700) !important;
-  box-shadow: 0 4px 30px rgba(255,45,149,0.4) !important;
-  margin-top: 0.5rem;
+  box-shadow: 0 4px 30px rgba(255,45,149,0.4) !important; margin-top: 0.5rem;
 }
 .flip-cta:hover { filter: brightness(1.1); transform: translateY(-2px); }
-
-.streak-bar {
-  margin-top: 1.2rem; font-size: 0.9rem; color: #888;
-  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-}
+.streak-bar { margin-top: 1.2rem; font-size: 0.9rem; color: #888; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
 #streak { color: #ffd700; font-weight: 700; font-family: 'Orbitron', sans-serif; }
 .streak-fire { font-size: 1.2rem; }
 
-/* shared */
 .cta {
   background: linear-gradient(135deg, #ffd700, #e6a800); color: #111; border: none;
   padding: 0.7rem 1.8rem; font-size: 1.05rem; font-weight: 700; border-radius: 10px;
@@ -188,16 +205,9 @@ nav a.active {
 }
 .cta:hover { transform: translateY(-2px); }
 .cta:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-.result-msg {
-  margin-top: 1.2rem; font-size: 1.25rem; min-height: 1.6rem; font-weight: 700;
-  font-family: 'Orbitron', sans-serif; letter-spacing: 1px;
-}
-input[type=number] {
-  width: 80px; padding: 0.5rem; background: #0e0e16; border: 1px solid #444;
-  border-radius: 6px; color: #fff; text-align: center;
-}
+.result-msg { margin-top: 1.2rem; font-size: 1.25rem; min-height: 1.6rem; font-weight: 700; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
+input[type=number] { width: 80px; padding: 0.5rem; background: #0e0e16; border: 1px solid #444; border-radius: 6px; color: #fff; text-align: center; }
 
-/* slots / roulette / bj keep working */
 .slot-machine, .roulette-wrap, .bj-table {
   background: rgba(255,255,255,0.03); border: 1px solid rgba(255,215,0,0.2);
   border-radius: 16px; padding: 2rem;
@@ -221,10 +231,7 @@ input[type=number] {
   font-size: 2.5rem; transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1);
 }
 .bet-types { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1rem; }
-.bet-btn {
-  background: #1a1a28; border: 1px solid #555; color: #eee; padding: 0.5rem 1rem;
-  border-radius: 6px; cursor: pointer;
-}
+.bet-btn { background: #1a1a28; border: 1px solid #555; color: #eee; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; }
 .bet-btn.selected { border-color: #ffd700; background: #2a2a18; color: #ffd700; }
 .hand { margin-bottom: 1.2rem; }
 .hand h3 { color: #ffd700; margin-bottom: 0.5rem; }
@@ -248,9 +255,7 @@ input[type=number] {
   box-shadow: 0 0 50px rgba(255,45,149,0.15);
 }
 .close { position: absolute; top: 12px; right: 16px; font-size: 1.5rem; cursor: pointer; color: #888; }
-.modal-content h2 {
-  font-family: 'Orbitron', sans-serif; color: #ffd700; text-align: center; margin-bottom: 1.2rem;
-}
+.modal-content h2 { font-family: 'Orbitron', sans-serif; color: #ffd700; text-align: center; margin-bottom: 1.2rem; }
 #auth-form input {
   width: 100%; padding: 0.75rem 1rem; margin-bottom: 0.8rem;
   background: #0a0a14; border: 1px solid #333; border-radius: 10px; color: #eee;
@@ -269,4 +274,5 @@ input[type=number] {
   .reel { width: 70px; height: 70px; font-size: 2.5rem; }
   .wheel { width: 120px; height: 120px; }
   .neon-title { font-size: 1.5rem; }
+  .rank-chip { min-width: 90px; }
 }
