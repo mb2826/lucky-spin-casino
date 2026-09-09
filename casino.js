@@ -1,11 +1,14 @@
 (function () {
-  const PLAYER_WIN_RATE = 0.40;
+  /* PREDATORY HOUSE EDGE — player wins ~25%, house ~75% */
+  const PLAYER_WIN_RATE = 0.25;
   function houseRoll() { return Math.random() < PLAYER_WIN_RATE; }
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
   let balance = parseInt(localStorage.getItem('casino_balance') || '1000', 10);
   let user = localStorage.getItem('casino_user') || null;
   let streak = parseInt(localStorage.getItem('casino_streak') || '0', 10);
+  let lossStreak = parseInt(localStorage.getItem('casino_loss_streak') || '0', 10);
+  let totalWagered = parseInt(localStorage.getItem('casino_wagered') || '0', 10);
   const balEl = document.getElementById('balance');
   const loginBtn = document.getElementById('open-login');
   const streakEl = document.getElementById('streak');
@@ -14,11 +17,15 @@
   function updateBalance() {
     balEl.textContent = balance;
     localStorage.setItem('casino_balance', balance);
+    // low balance pressure
+    if (balance < 100 && user) showDepositNudge();
   }
   function updateStreak() {
     if (streakEl) streakEl.textContent = streak;
     if (streakFire) streakFire.textContent = streak >= 3 ? '🔥'.repeat(Math.min(streak, 5)) : '';
     localStorage.setItem('casino_streak', streak);
+    localStorage.setItem('casino_loss_streak', lossStreak);
+    localStorage.setItem('casino_wagered', totalWagered);
   }
   updateBalance();
   updateStreak();
@@ -35,9 +42,82 @@
   const modal = document.getElementById('login-modal');
   if (!user) modal.classList.add('open');
 
+  /* deposit / loss-chase nudges */
+  function showDepositNudge() {
+    if (document.getElementById('nudge-overlay')) return;
+    const o = document.createElement('div');
+    o.id = 'nudge-overlay';
+    o.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:300;display:flex;align-items:center;justify-content:center;';
+    o.innerHTML = '<div style="background:#161622;border:2px solid #ff2d95;border-radius:18px;padding:2rem;max-width:340px;text-align:center;box-shadow:0 0 40px rgba(255,45,149,0.4)">' +
+      '<div style="font-size:2rem;margin-bottom:0.5rem">⚠️</div>' +
+      '<h3 style="color:#ffd700;font-family:Orbitron,sans-serif;margin-bottom:0.6rem">LOW BALANCE</h3>' +
+      '<p style="color:#ccc;margin-bottom:1rem;font-size:0.95rem">You\'re running low. Top up now and get a <b style="color:#0f0">+200 FREE</b> bonus credits!</p>' +
+      '<button id="nudge-yes" style="width:100%;padding:0.8rem;background:linear-gradient(135deg,#ff2d95,#ff6b00);border:none;border-radius:10px;color:#fff;font-weight:700;cursor:pointer;margin-bottom:0.5rem">CLAIM +500 CREDITS</button>' +
+      '<button id="nudge-no" style="width:100%;padding:0.5rem;background:transparent;border:1px solid #444;border-radius:8px;color:#888;cursor:pointer;font-size:0.8rem">Maybe later</button></div>';
+    document.body.appendChild(o);
+    document.getElementById('nudge-yes').onclick = () => {
+      balance += 500; updateBalance(); o.remove();
+      flashMsg('+500 CREDITS ADDED — KEEP PLAYING!', '#0f0');
+    };
+    document.getElementById('nudge-no').onclick = () => o.remove();
+  }
+
+  function showNearMiss(msg) {
+    flashMsg(msg || 'SO CLOSE! One more try...', '#ffd700');
+  }
+
+  function flashMsg(text, color) {
+    let el = document.getElementById('flash-toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'flash-toast';
+      el.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:400;padding:0.8rem 1.5rem;border-radius:10px;font-weight:700;font-family:Orbitron,sans-serif;letter-spacing:1px;pointer-events:none;transition:opacity 0.3s;';
+      document.body.appendChild(el);
+    }
+    el.textContent = text;
+    el.style.background = color === '#0f0' ? 'rgba(0,40,0,0.95)' : color === '#f55' ? 'rgba(40,0,0,0.95)' : 'rgba(40,30,0,0.95)';
+    el.style.color = color;
+    el.style.border = '1px solid ' + color;
+    el.style.opacity = '1';
+    clearTimeout(el._t);
+    el._t = setTimeout(() => { el.style.opacity = '0'; }, 2500);
+  }
+
+  function afterLoss(bet) {
+    lossStreak++;
+    streak = 0;
+    updateStreak();
+    // loss chasing bait after 2+ losses
+    if (lossStreak >= 2 && balance >= bet) {
+      setTimeout(() => {
+        flashMsg('DOUBLE YOUR BET TO WIN IT BACK!', '#ff6b00');
+        // auto-bump bet suggestion
+        const inputs = document.querySelectorAll('#flip-bet, #slot-bet, #roulette-bet, #bj-bet');
+        inputs.forEach(inp => {
+          if (inp.offsetParent !== null) {
+            const cur = parseInt(inp.value, 10) || bet;
+            inp.value = Math.min(balance, cur * 2);
+            inp.style.borderColor = '#ff6b00';
+            setTimeout(() => { inp.style.borderColor = ''; }, 2000);
+          }
+        });
+      }, 800);
+    }
+    if (lossStreak >= 4) {
+      setTimeout(() => showDepositNudge(), 1200);
+    }
+  }
+
+  function afterWin() {
+    lossStreak = 0;
+    streak++;
+    updateStreak();
+  }
+
   document.getElementById('add-credits').onclick = () => {
     if (!user) { modal.classList.add('open'); return; }
     balance += 500; updateBalance();
+    flashMsg('+500 CREDITS — GOOD LUCK!', '#0f0');
   };
 
   document.querySelectorAll('nav a[data-game]').forEach(a => {
@@ -50,7 +130,6 @@
       a.classList.add('active');
     };
   });
-  // default active already set in HTML for coinflip
 
   document.getElementById('open-login').onclick = e => { e.preventDefault(); modal.classList.add('open'); };
   document.getElementById('close-login').onclick = () => { if (user) modal.classList.remove('open'); };
@@ -67,7 +146,10 @@
     localStorage.setItem('casino_email', email);
     updateUserUI();
     modal.classList.remove('open');
-    alert('Welcome, ' + user + '! 1000 credits ready.');
+    // welcome bonus bait
+    balance = 1500;
+    updateBalance();
+    flashMsg('WELCOME BONUS +500! Total 1500 credits', '#0f0');
   };
 
   function requireLogin() {
@@ -75,7 +157,7 @@
     return true;
   }
 
-  /* ========== COIN FLIP ========== */
+  /* ========== COIN FLIP (predatory) ========== */
   let chosenSide = null;
   const coin = document.getElementById('coin');
   const flipBtn = document.getElementById('flip-btn');
@@ -89,82 +171,75 @@
       chosenSide = btn.dataset.side;
     };
   });
-
   document.querySelectorAll('.qbet').forEach(btn => {
     btn.onclick = () => {
       const amt = btn.dataset.amt;
       if (amt === 'half') flipBetInput.value = Math.max(1, Math.floor(balance / 2));
-      else if (amt === 'max') flipBetInput.value = Math.min(1000, balance);
+      else if (amt === 'max') flipBetInput.value = Math.min(balance, 1000);
       else flipBetInput.value = amt;
     };
   });
 
   flipBtn.onclick = () => {
     if (!requireLogin()) return;
-    if (!chosenSide) {
-      flipResult.textContent = 'Pick HEADS or TAILS';
-      flipResult.style.color = '#f55';
-      return;
-    }
+    if (!chosenSide) { flipResult.textContent = 'Pick HEADS or TAILS'; flipResult.style.color = '#f55'; return; }
     const bet = Math.max(1, parseInt(flipBetInput.value, 10) || 25);
-    if (balance < bet) {
-      flipResult.textContent = 'Not enough credits';
-      flipResult.style.color = '#f55';
-      return;
-    }
-    balance -= bet;
-    updateBalance();
-    flipBtn.disabled = true;
-    flipResult.textContent = '';
+    if (balance < bet) { flipResult.textContent = 'Not enough credits'; flipResult.style.color = '#f55'; showDepositNudge(); return; }
+    balance -= bet; totalWagered += bet; updateBalance();
+    flipBtn.disabled = true; flipResult.textContent = '';
 
     const playerWins = houseRoll();
-    // if player wins → land on chosen side; else opposite
     const resultSide = playerWins ? chosenSide : (chosenSide === 'heads' ? 'tails' : 'heads');
-    // heads ends on even half-turns (0, 360, 720...), tails on odd (180, 540...)
-    // animation already does many full spins; final rot decides face
-    const baseSpins = 6 * 360; // 6 full rotations
+    const baseSpins = 6 * 360;
     const endRot = resultSide === 'heads' ? baseSpins : baseSpins + 180;
     coin.style.setProperty('--end-rot', endRot + 'deg');
     coin.classList.remove('flipping');
-    void coin.offsetWidth; // reflow
+    void coin.offsetWidth;
     coin.classList.add('flipping');
 
     setTimeout(() => {
       coin.classList.remove('flipping');
-      // lock visual to final face
       coin.style.transform = 'rotateY(' + endRot + 'deg)';
-
       if (playerWins) {
         const win = bet * 2;
         balance += win;
-        streak++;
+        afterWin();
         flipResult.textContent = resultSide.toUpperCase() + ' — YOU WIN +' + win;
         flipResult.style.color = '#0f0';
       } else {
-        streak = 0;
+        afterLoss(bet);
         flipResult.textContent = resultSide.toUpperCase() + ' — HOUSE WINS';
         flipResult.style.color = '#f55';
+        // near-miss feel: occasional "almost"
+        if (Math.random() < 0.35) showNearMiss('IT WAS SO CLOSE...');
       }
       updateBalance();
-      updateStreak();
       flipBtn.disabled = false;
     }, 2300);
   };
 
-  /* ========== SLOTS ========== */
+  /* ========== SLOTS (near-miss heavy) ========== */
   const symbols = ['🍒', '🍋', '🔔', '⭐', '💎', '7️⃣', '🍀'];
   const reelEls = [document.getElementById('reel1'), document.getElementById('reel2'), document.getElementById('reel3')];
   const spinBtn = document.getElementById('spin-btn');
   const slotResult = document.getElementById('slot-result');
 
   function forceSlotLose() {
+    // 50% near-miss: two matching, third different
+    if (Math.random() < 0.55) {
+      const s = pick(symbols);
+      const other = pick(symbols.filter(x => x !== s));
+      const pos = Math.floor(Math.random() * 3);
+      const out = [s, s, s]; out[pos] = other;
+      return out;
+    }
     let a = pick(symbols), b = pick(symbols), c = pick(symbols);
     while (a === b || b === c || a === c) { b = pick(symbols); c = pick(symbols); }
     return [a, b, c];
   }
   function forceSlotWin() {
-    if (Math.random() < 0.30) {
-      const s = pick(['7️⃣', '💎', '⭐', '🍀', '🔔']);
+    if (Math.random() < 0.2) {
+      const s = pick(['7️⃣', '💎', '⭐']);
       return [s, s, s];
     }
     const s = pick(symbols);
@@ -177,10 +252,11 @@
   spinBtn.onclick = () => {
     if (!requireLogin()) return;
     const bet = Math.max(1, parseInt(document.getElementById('slot-bet').value, 10) || 10);
-    if (balance < bet) { slotResult.textContent = 'Not enough credits'; slotResult.style.color = '#f55'; return; }
-    balance -= bet; updateBalance();
+    if (balance < bet) { slotResult.textContent = 'Not enough credits'; slotResult.style.color = '#f55'; showDepositNudge(); return; }
+    balance -= bet; totalWagered += bet; updateBalance();
     spinBtn.disabled = true; slotResult.textContent = '';
-    const final = houseRoll() ? forceSlotWin() : forceSlotLose();
+    const playerWins = houseRoll();
+    const final = playerWins ? forceSlotWin() : forceSlotLose();
     let spins = 0;
     const interval = setInterval(() => {
       reelEls.forEach(r => r.textContent = pick(symbols));
@@ -192,10 +268,17 @@
         if (final[0] === final[1] && final[1] === final[2]) {
           win = bet * (final[0] === '7️⃣' ? 50 : final[0] === '💎' ? 25 : 10);
           slotResult.textContent = 'JACKPOT! +' + win; slotResult.style.color = '#0f0';
+          afterWin();
         } else if (final[0] === final[1] || final[1] === final[2] || final[0] === final[2]) {
-          win = bet * 2; slotResult.textContent = 'Pair! +' + win; slotResult.style.color = '#ffd700';
+          // near-miss on forced lose still shows pair visual but pays 0 if house wanted loss
+          if (playerWins) {
+            win = bet * 2; slotResult.textContent = 'Pair! +' + win; slotResult.style.color = '#ffd700'; afterWin();
+          } else {
+            slotResult.textContent = 'SO CLOSE — 2 matching!'; slotResult.style.color = '#ff6b00';
+            afterLoss(bet); showNearMiss('Almost a win... spin again!');
+          }
         } else {
-          slotResult.textContent = 'No win'; slotResult.style.color = '#aaa';
+          slotResult.textContent = 'No win'; slotResult.style.color = '#aaa'; afterLoss(bet);
         }
         balance += win; updateBalance(); spinBtn.disabled = false;
       }
@@ -238,10 +321,11 @@
     if (!requireLogin()) return;
     if (!selectedBet) { rouResult.textContent = 'Pick a bet first'; rouResult.style.color = '#f55'; return; }
     const bet = Math.max(1, parseInt(document.getElementById('roulette-bet').value, 10) || 10);
-    if (balance < bet) { rouResult.textContent = 'Not enough credits'; rouResult.style.color = '#f55'; return; }
-    balance -= bet; updateBalance();
+    if (balance < bet) { rouResult.textContent = 'Not enough credits'; rouResult.style.color = '#f55'; showDepositNudge(); return; }
+    balance -= bet; totalWagered += bet; updateBalance();
     spinRou.disabled = true; rouResult.textContent = 'Spinning...';
-    const num = forceRouletteResult(selectedBet, houseRoll());
+    const playerWins = houseRoll();
+    const num = forceRouletteResult(selectedBet, playerWins);
     wheel.style.transform = 'rotate(' + (1800 + num * 9.73) + 'deg)';
     setTimeout(() => {
       const isRed = redNums.includes(num);
@@ -254,8 +338,8 @@
       else if (selectedBet === 'black' && isBlack) win = bet * 2;
       else if (selectedBet === 'odd' && num % 2 === 1) win = bet * 2;
       else if (selectedBet === 'even' && num !== 0 && num % 2 === 0) win = bet * 2;
-      if (win) { msg += ' — YOU WIN +' + win; rouResult.style.color = '#0f0'; }
-      else { msg += ' — lose'; rouResult.style.color = '#f55'; }
+      if (win) { msg += ' — YOU WIN +' + win; rouResult.style.color = '#0f0'; afterWin(); }
+      else { msg += ' — lose'; rouResult.style.color = '#f55'; afterLoss(bet); }
       rouResult.textContent = msg; balance += win; updateBalance(); spinRou.disabled = false;
     }, 3200);
   };
@@ -318,8 +402,8 @@
   dealBtn.onclick = () => {
     if (!requireLogin()) return;
     bjBet = Math.max(1, parseInt(document.getElementById('bj-bet').value, 10) || 20);
-    if (balance < bjBet) { bjResult.textContent = 'Not enough credits'; bjResult.style.color = '#f55'; return; }
-    balance -= bjBet; updateBalance();
+    if (balance < bjBet) { bjResult.textContent = 'Not enough credits'; bjResult.style.color = '#f55'; showDepositNudge(); return; }
+    balance -= bjBet; totalWagered += bjBet; updateBalance();
     forcedOutcome = houseRoll() ? 'player' : 'dealer';
     dealBiased(); inHand = true; bjResult.textContent = '';
     dealBtn.disabled = true; hitBtn.disabled = false; standBtn.disabled = false;
@@ -328,7 +412,7 @@
     document.getElementById('player-score').textContent = '(' + handScore(player) + ')';
     document.getElementById('dealer-score').textContent = '';
     if (handScore(player) === 21) {
-      balance += Math.floor(bjBet * 2.5); updateBalance();
+      balance += Math.floor(bjBet * 2.5); updateBalance(); afterWin();
       endHand('Blackjack! +' + Math.floor(bjBet * 2.5), '#0f0');
     }
   };
@@ -339,7 +423,7 @@
     renderCards(document.getElementById('player-cards'), player, false);
     const ps = handScore(player);
     document.getElementById('player-score').textContent = '(' + ps + ')';
-    if (ps > 21) endHand('Bust! You lose', '#f55');
+    if (ps > 21) { afterLoss(bjBet); endHand('Bust! You lose', '#f55'); }
   };
 
   standBtn.onclick = () => {
@@ -350,10 +434,10 @@
     }
     const ps = handScore(player), ds = handScore(dealer);
     if (ds > 21 || ps > ds) {
-      balance += bjBet * 2; updateBalance();
+      balance += bjBet * 2; updateBalance(); afterWin();
       endHand('You win! +' + (bjBet * 2), '#0f0');
     } else if (ps === ds) {
       balance += bjBet; updateBalance(); endHand('Push', '#ffd700');
-    } else endHand('Dealer wins', '#f55');
+    } else { afterLoss(bjBet); endHand('Dealer wins', '#f55'); }
   };
 })();
