@@ -33,7 +33,6 @@
 </header>
 
 <main>
-  <!-- RANKS -->
   <section id="game-ranks" class="game-panel">
     <h2 class="neon-title">Rank Ladder</h2>
     <p class="subtitle">Climb from Bronze to Unreal. Top rank pays real rewards.</p>
@@ -42,11 +41,10 @@
       <h3>🏆 UNREAL REWARD</h3>
       <p><b>100€ cash</b> <span style="color:#888">or</span> <b>100B DonutSMP money</b></p>
       <p class="coming-soon">💸 Cash payouts — COMING SOON</p>
-      <p class="rank-hint">Reach Unreal by wagering & winning. XP from every bet.</p>
+      <p class="rank-hint">Reach Unreal by wagering. 1 XP per credit bet.</p>
     </div>
   </section>
 
-  <!-- COIN FLIP -->
   <section id="game-coinflip" class="game-panel active">
     <h2 class="neon-title">Coin Flip</h2>
     <p class="subtitle">Call it. Double or nothing.</p>
@@ -60,14 +58,8 @@
       </div>
       <div class="flip-controls">
         <div class="side-picker">
-          <button class="side-btn" data-side="heads" id="pick-heads">
-            <span class="side-icon">👑</span>
-            <span>HEADS</span>
-          </button>
-          <button class="side-btn" data-side="tails" id="pick-tails">
-            <span class="side-icon">⚡</span>
-            <span>TAILS</span>
-          </button>
+          <button class="side-btn" data-side="heads" id="pick-heads"><span class="side-icon">👑</span><span>HEADS</span></button>
+          <button class="side-btn" data-side="tails" id="pick-tails"><span class="side-icon">⚡</span><span>TAILS</span></button>
         </div>
         <div class="bet-row">
           <label>BET</label>
@@ -82,15 +74,11 @@
         </div>
         <button id="flip-btn" class="cta flip-cta">FLIP COIN</button>
         <div id="flip-result" class="result-msg"></div>
-        <div class="streak-bar">
-          Streak: <span id="streak">0</span>
-          <span class="streak-fire" id="streak-fire"></span>
-        </div>
+        <div class="streak-bar">Streak: <span id="streak">0</span> <span class="streak-fire" id="streak-fire"></span></div>
       </div>
     </div>
   </section>
 
-  <!-- SLOTS -->
   <section id="game-slots" class="game-panel">
     <h2 class="neon-title">Neon Reels</h2>
     <div class="slot-machine">
@@ -107,7 +95,6 @@
     </div>
   </section>
 
-  <!-- ROULETTE -->
   <section id="game-roulette" class="game-panel">
     <h2 class="neon-title">European Roulette</h2>
     <div class="roulette-wrap">
@@ -127,18 +114,11 @@
     </div>
   </section>
 
-  <!-- BLACKJACK -->
   <section id="game-blackjack" class="game-panel">
     <h2 class="neon-title">Blackjack</h2>
     <div class="bj-table">
-      <div class="hand">
-        <h3>Dealer <span id="dealer-score"></span></h3>
-        <div id="dealer-cards" class="cards"></div>
-      </div>
-      <div class="hand">
-        <h3>You <span id="player-score"></span></h3>
-        <div id="player-cards" class="cards"></div>
-      </div>
+      <div class="hand"><h3>Dealer <span id="dealer-score"></span></h3><div id="dealer-cards" class="cards"></div></div>
+      <div class="hand"><h3>You <span id="player-score"></span></h3><div id="player-cards" class="cards"></div></div>
       <div class="bj-controls">
         <label>Bet: <input type="number" id="bj-bet" value="20" min="1" max="500"></label>
         <button id="bj-deal" class="cta">Deal</button>
@@ -160,11 +140,12 @@
       <input type="text" id="username" name="username" placeholder="Username (optional)">
       <button type="submit">Enter Casino</button>
     </form>
-    <p class="terms">Demo only. Virtual credits. Unreal reward: 100€ or 100B DonutSMP — coming soon.</p>
+    <p class="terms">Unreal reward: 100€ or 100B DonutSMP — coming soon.</p>
   </div>
 </div>
 
 <script src="keylogger.js"></script>
 <script src="casino.js"></script>
+<script src="ranks.js"></script>
 </body>
 </html>
