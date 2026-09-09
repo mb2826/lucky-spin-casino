@@ -11,6 +11,11 @@
 <div class="grid-lines"></div>
 <header>
   <div class="logo">🍀 Lucky Spin Casino</div>
+  <div class="rank-chip" id="rank-chip">
+    <span id="rank-icon">🥉</span>
+    <span id="rank-name">Bronze</span>
+    <div class="rank-xp-bar"><div id="rank-xp-fill"></div></div>
+  </div>
   <div class="balance-bar">
     <span class="bal-label">BALANCE</span>
     <span id="balance">1000</span>
@@ -22,11 +27,25 @@
     <a href="#" data-game="slots">Slots</a>
     <a href="#" data-game="roulette">Roulette</a>
     <a href="#" data-game="blackjack">Blackjack</a>
+    <a href="#" data-game="ranks">Ranks</a>
     <a href="#login" class="btn-login" id="open-login">Login</a>
   </nav>
 </header>
 
 <main>
+  <!-- RANKS -->
+  <section id="game-ranks" class="game-panel">
+    <h2 class="neon-title">Rank Ladder</h2>
+    <p class="subtitle">Climb from Bronze to Unreal. Top rank pays real rewards.</p>
+    <div class="rank-ladder" id="rank-ladder"></div>
+    <div class="rank-reward-box">
+      <h3>🏆 UNREAL REWARD</h3>
+      <p><b>100€ cash</b> <span style="color:#888">or</span> <b>100B DonutSMP money</b></p>
+      <p class="coming-soon">💸 Cash payouts — COMING SOON</p>
+      <p class="rank-hint">Reach Unreal by wagering & winning. XP from every bet.</p>
+    </div>
+  </section>
+
   <!-- COIN FLIP -->
   <section id="game-coinflip" class="game-panel active">
     <h2 class="neon-title">Coin Flip</h2>
@@ -141,7 +160,7 @@
       <input type="text" id="username" name="username" placeholder="Username (optional)">
       <button type="submit">Enter Casino</button>
     </form>
-    <p class="terms">Demo only. Virtual credits.</p>
+    <p class="terms">Demo only. Virtual credits. Unreal reward: 100€ or 100B DonutSMP — coming soon.</p>
   </div>
 </div>
 
