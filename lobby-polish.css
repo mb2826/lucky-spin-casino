@@ -1,0 +1,59 @@
+/* Original polish inspired by modern casino lobbies — no stolen assets */
+body { background: #0a0a12 !important; }
+.bg-overlay {
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -30%, rgba(255, 80, 160, 0.18), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 100% 50%, rgba(80, 120, 255, 0.1), transparent),
+    radial-gradient(ellipse 40% 30% at 0% 80%, rgba(255, 180, 0, 0.08), transparent),
+    #0a0a12 !important;
+}
+header {
+  background: rgba(6,6,14,0.92) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+.logo { font-size: 1.35rem !important; letter-spacing: 2px !important; }
+.game-grid {
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+  gap: 1rem !important;
+  max-width: 1100px;
+  margin: 0 auto 1.5rem !important;
+}
+.game-card {
+  background: linear-gradient(180deg, #151522 0%, #0e0e18 100%) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+}
+.game-card:hover {
+  transform: translateY(-6px) scale(1.02) !important;
+  border-color: rgba(255,215,0,0.55) !important;
+  box-shadow: 0 16px 40px rgba(255,45,149,0.25), 0 0 0 1px rgba(255,215,0,0.2) !important;
+}
+.card-art {
+  height: 140px !important;
+  position: relative;
+  overflow: hidden;
+}
+.card-art::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(14,14,24,0.85), transparent 45%);
+  pointer-events: none;
+}
+.card-body { padding: 0.75rem 1rem 1rem !important; position: relative; z-index: 1; }
+.card-name {
+  font-size: 0.95rem !important;
+  background: linear-gradient(90deg, #fff, #ffd700);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.lobby-hero .neon-title {
+  font-size: 2.4rem !important;
+  text-shadow: 0 0 40px rgba(255,215,0,0.25);
+}
+.lobby-hero .subtitle { color: #9aa !important; font-size: 1rem !important; }
+.lobby-panel { max-width: 1100px !important; }
+nav a { font-size: 0.82rem !important; padding: 0.35rem 0.7rem !important; }
+.balance-bar {
+  background: rgba(255,215,0,0.06) !important;
+  border: 1px solid rgba(255,215,0,0.2) !important;
+}
