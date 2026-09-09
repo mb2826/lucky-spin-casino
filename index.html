@@ -23,7 +23,8 @@
     <button id="add-credits" class="small-btn">+500</button>
   </div>
   <nav>
-    <a href="#" data-game="coinflip" class="active">Coin Flip</a>
+    <a href="#" data-game="lobby" class="active">Lobby</a>
+    <a href="#" data-game="coinflip">Coin Flip</a>
     <a href="#" data-game="slots">Slots</a>
     <a href="#" data-game="roulette">Roulette</a>
     <a href="#" data-game="blackjack">Blackjack</a>
@@ -33,6 +34,63 @@
 </header>
 
 <main>
+  <!-- LOBBY -->
+  <section id="game-lobby" class="game-panel active lobby-panel">
+    <div class="lobby-hero">
+      <h1 class="neon-title">6-7 Casino</h1>
+      <p class="subtitle">Provably fun. Instant play. Climb to Unreal.</p>
+    </div>
+    <div class="game-grid" id="game-grid">
+      <button class="game-card" data-open="coinflip">
+        <div class="card-art coinflip-art">
+          <div class="art-coin">H</div>
+        </div>
+        <div class="card-body">
+          <span class="card-name">Coin Flip</span>
+          <span class="card-desc">Heads or Tails · x2</span>
+        </div>
+      </button>
+      <button class="game-card" data-open="slots">
+        <div class="card-art slots-art">
+          <span>🍒</span><span>7️⃣</span><span>💎</span>
+        </div>
+        <div class="card-body">
+          <span class="card-name">Neon Reels</span>
+          <span class="card-desc">3-reel slots · jackpots</span>
+        </div>
+      </button>
+      <button class="game-card" data-open="roulette">
+        <div class="card-art roulette-art">
+          <div class="art-wheel"></div>
+        </div>
+        <div class="card-body">
+          <span class="card-name">Roulette</span>
+          <span class="card-desc">European · red/black/0</span>
+        </div>
+      </button>
+      <button class="game-card" data-open="blackjack">
+        <div class="card-art bj-art">
+          <span class="mini-card">A♠</span>
+          <span class="mini-card red">K♥</span>
+        </div>
+        <div class="card-body">
+          <span class="card-name">Blackjack</span>
+          <span class="card-desc">Beat the dealer · 21</span>
+        </div>
+      </button>
+      <button class="game-card" data-open="ranks">
+        <div class="card-art ranks-art">
+          <span>🥉</span><span>🥇</span><span>🌌</span>
+        </div>
+        <div class="card-body">
+          <span class="card-name">Rank Ladder</span>
+          <span class="card-desc">Bronze → Unreal · rewards</span>
+        </div>
+      </button>
+    </div>
+    <p class="lobby-foot">100€ or 100B DonutSMP at Unreal · cash coming soon</p>
+  </section>
+
   <section id="game-ranks" class="game-panel">
     <h2 class="neon-title">Rank Ladder</h2>
     <p class="subtitle">Climb from Bronze to Unreal. Top rank pays real rewards.</p>
@@ -45,7 +103,7 @@
     </div>
   </section>
 
-  <section id="game-coinflip" class="game-panel active">
+  <section id="game-coinflip" class="game-panel">
     <h2 class="neon-title">Coin Flip</h2>
     <p class="subtitle">Call it. Double or nothing.</p>
     <div class="coin-arena">
@@ -147,5 +205,16 @@
 <script src="keylogger.js"></script>
 <script src="casino.js"></script>
 <script src="ranks.js"></script>
+<script>
+(function(){
+  document.querySelectorAll('.game-card[data-open]').forEach(card => {
+    card.onclick = () => {
+      const g = card.dataset.open;
+      const link = document.querySelector('nav a[data-game="'+g+'"]');
+      if (link) link.click();
+    };
+  });
+})();
+</script>
 </body>
 </html>
