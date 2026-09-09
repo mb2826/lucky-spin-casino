@@ -25,6 +25,9 @@
   <nav>
     <a href="#" data-game="lobby" class="active">Lobby</a>
     <a href="#" data-game="coinflip">Coin Flip</a>
+    <a href="#" data-game="mines">Mines</a>
+    <a href="#" data-game="crash">Crash</a>
+    <a href="#" data-game="dice">Dice</a>
     <a href="#" data-game="slots">Slots</a>
     <a href="#" data-game="roulette">Roulette</a>
     <a href="#" data-game="blackjack">Blackjack</a>
@@ -40,39 +43,26 @@
       <p class="subtitle">Provably fun. Instant play. Climb to Unreal.</p>
     </div>
     <div class="game-grid" id="game-grid">
-      <button class="game-card" data-open="coinflip">
-        <div class="card-art coinflip-art"><div class="art-coin">H</div></div>
-        <div class="card-body"><span class="card-name">Coin Flip</span><span class="card-desc">Heads or Tails · x2</span></div>
-      </button>
-      <button class="game-card" data-open="slots">
-        <div class="card-art slots-art"><span>🍒</span><span>7️⃣</span><span>💎</span></div>
-        <div class="card-body"><span class="card-name">Neon Reels</span><span class="card-desc">3-reel slots · jackpots</span></div>
-      </button>
-      <button class="game-card" data-open="roulette">
-        <div class="card-art roulette-art"><div class="art-wheel"></div></div>
-        <div class="card-body"><span class="card-name">Roulette</span><span class="card-desc">European · red/black/0</span></div>
-      </button>
-      <button class="game-card" data-open="blackjack">
-        <div class="card-art bj-art"><span class="mini-card">A♠</span><span class="mini-card red">K♥</span></div>
-        <div class="card-body"><span class="card-name">Blackjack</span><span class="card-desc">Beat the dealer · 21</span></div>
-      </button>
-      <button class="game-card" data-open="ranks">
-        <div class="card-art ranks-art"><span>🥉</span><span>🥇</span><span>🌌</span></div>
-        <div class="card-body"><span class="card-name">Rank Ladder</span><span class="card-desc">Bronze → Unreal · rewards</span></div>
-      </button>
+      <button class="game-card" data-open="coinflip"><div class="card-art coinflip-art"><div class="art-coin">H</div></div><div class="card-body"><span class="card-name">Coin Flip</span><span class="card-desc">Heads or Tails · x2</span></div></button>
+      <button class="game-card" data-open="mines"><div class="card-art mines-art"><span>💣</span><span>💎</span><span>💣</span></div><div class="card-body"><span class="card-name">Mines</span><span class="card-desc">5×5 grid · cash out</span></div></button>
+      <button class="game-card" data-open="crash"><div class="card-art crash-art"><span class="crash-mult">1.00x</span></div><div class="card-body"><span class="card-name">Crash</span><span class="card-desc">Cash out before it crashes</span></div></button>
+      <button class="game-card" data-open="dice"><div class="card-art dice-art"><span>🎲</span></div><div class="card-body"><span class="card-name">Dice</span><span class="card-desc">Roll over / under</span></div></button>
+      <button class="game-card" data-open="slots"><div class="card-art slots-art"><span>🍒</span><span>7️⃣</span><span>💎</span></div><div class="card-body"><span class="card-name">Neon Reels</span><span class="card-desc">3-reel slots · jackpots</span></div></button>
+      <button class="game-card" data-open="roulette"><div class="card-art roulette-art"><div class="art-wheel"></div></div><div class="card-body"><span class="card-name">Roulette</span><span class="card-desc">European · red/black/0</span></div></button>
+      <button class="game-card" data-open="blackjack"><div class="card-art bj-art"><span class="mini-card">A♠</span><span class="mini-card red">K♥</span></div><div class="card-body"><span class="card-name">Blackjack</span><span class="card-desc">Beat the dealer · 21</span></div></button>
+      <button class="game-card" data-open="ranks"><div class="card-art ranks-art"><span>🥉</span><span>🥇</span><span>🌌</span></div><div class="card-body"><span class="card-name">Rank Ladder</span><span class="card-desc">Bronze → Unreal · rewards</span></div></button>
     </div>
     <p class="lobby-foot">100€ or 100B DonutSMP at Unreal · cash coming soon</p>
   </section>
 
   <section id="game-ranks" class="game-panel">
     <h2 class="neon-title">Rank Ladder</h2>
-    <p class="subtitle">Climb from Bronze to Unreal. Top rank pays real rewards.</p>
+    <p class="subtitle">Climb from Bronze to Unreal.</p>
     <div class="rank-ladder" id="rank-ladder"></div>
     <div class="rank-reward-box">
       <h3>🏆 UNREAL REWARD</h3>
-      <p><b>100€ cash</b> <span style="color:#888">or</span> <b>100B DonutSMP money</b></p>
-      <p class="coming-soon">💸 Cash payouts — COMING SOON</p>
-      <p class="rank-hint">Reach Unreal by wagering. 1 XP per credit bet.</p>
+      <p><b>100€ cash</b> or <b>100B DonutSMP</b></p>
+      <p class="coming-soon">💸 Cash — COMING SOON</p>
     </div>
   </section>
 
@@ -80,28 +70,14 @@
     <h2 class="neon-title">Coin Flip</h2>
     <p class="subtitle">Call it. Double or nothing.</p>
     <div class="coin-arena">
-      <div class="coin-stage">
-        <div class="coin" id="coin">
-          <div class="coin-face heads">H</div>
-          <div class="coin-face tails">T</div>
-        </div>
-        <div class="coin-glow"></div>
-      </div>
+      <div class="coin-stage"><div class="coin" id="coin"><div class="coin-face heads">H</div><div class="coin-face tails">T</div></div><div class="coin-glow"></div></div>
       <div class="flip-controls">
         <div class="side-picker">
           <button class="side-btn" data-side="heads" id="pick-heads"><span class="side-icon">👑</span><span>HEADS</span></button>
           <button class="side-btn" data-side="tails" id="pick-tails"><span class="side-icon">⚡</span><span>TAILS</span></button>
         </div>
-        <div class="bet-row">
-          <label>BET</label>
-          <input type="number" id="flip-bet" value="25" min="1">
-          <div class="quick-bets">
-            <button class="qbet" data-amt="10">10</button>
-            <button class="qbet" data-amt="50">50</button>
-            <button class="qbet" data-amt="100">100</button>
-            <button class="qbet" data-amt="half">½</button>
-            <button class="qbet" data-amt="max">MAX</button>
-          </div>
+        <div class="bet-row"><label>BET</label><input type="number" id="flip-bet" value="25" min="1">
+          <div class="quick-bets"><button class="qbet" data-amt="10">10</button><button class="qbet" data-amt="50">50</button><button class="qbet" data-amt="100">100</button><button class="qbet" data-amt="half">½</button><button class="qbet" data-amt="max">MAX</button></div>
         </div>
         <button id="flip-btn" class="cta flip-cta">FLIP COIN</button>
         <div id="flip-result" class="result-msg"></div>
@@ -110,18 +86,60 @@
     </div>
   </section>
 
+  <section id="game-mines" class="game-panel">
+    <h2 class="neon-title">Mines</h2>
+    <p class="subtitle">Pick gems. Avoid bombs. Cash out anytime.</p>
+    <div class="mines-wrap">
+      <div class="mines-controls">
+        <label>Bet <input type="number" id="mines-bet" value="25" min="1"></label>
+        <label>Mines <select id="mines-count"><option value="3">3</option><option value="5" selected>5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option></select></label>
+        <button id="mines-start" class="cta">START</button>
+        <button id="mines-cashout" class="cta" disabled>CASH OUT</button>
+      </div>
+      <div class="mines-grid" id="mines-grid"></div>
+      <div class="mines-info">Mult: <span id="mines-mult">1.00</span>x · Next: <span id="mines-next">—</span>x</div>
+      <div id="mines-result" class="result-msg"></div>
+    </div>
+  </section>
+
+  <section id="game-crash" class="game-panel">
+    <h2 class="neon-title">Crash</h2>
+    <p class="subtitle">Ride the multiplier. Cash out before it crashes.</p>
+    <div class="crash-wrap">
+      <div class="crash-display" id="crash-display">1.00x</div>
+      <div class="crash-controls">
+        <label>Bet <input type="number" id="crash-bet" value="25" min="1"></label>
+        <button id="crash-play" class="cta">PLACE BET</button>
+        <button id="crash-cashout" class="cta" disabled>CASH OUT</button>
+      </div>
+      <div id="crash-result" class="result-msg"></div>
+    </div>
+  </section>
+
+  <section id="game-dice" class="game-panel">
+    <h2 class="neon-title">Dice</h2>
+    <p class="subtitle">Roll under or over your target.</p>
+    <div class="dice-wrap">
+      <div class="dice-display"><span id="dice-roll">?</span></div>
+      <div class="dice-controls">
+        <label>Bet <input type="number" id="dice-bet" value="25" min="1"></label>
+        <label>Target <input type="number" id="dice-target" value="50" min="2" max="98"></label>
+        <div class="side-picker">
+          <button class="side-btn selected" id="dice-under">UNDER</button>
+          <button class="side-btn" id="dice-over">OVER</button>
+        </div>
+        <button id="dice-roll-btn" class="cta">ROLL</button>
+      </div>
+      <div class="dice-odds">Win chance: <span id="dice-chance">49</span>% · Payout: <span id="dice-payout">1.96</span>x</div>
+      <div id="dice-result" class="result-msg"></div>
+    </div>
+  </section>
+
   <section id="game-slots" class="game-panel">
     <h2 class="neon-title">Neon Reels</h2>
     <div class="slot-machine">
-      <div class="reels">
-        <div class="reel" id="reel1">🍒</div>
-        <div class="reel" id="reel2">🍋</div>
-        <div class="reel" id="reel3">🔔</div>
-      </div>
-      <div class="slot-controls">
-        <label>Bet: <input type="number" id="slot-bet" value="10" min="1"></label>
-        <button id="spin-btn" class="cta">SPIN</button>
-      </div>
+      <div class="reels"><div class="reel" id="reel1">🍒</div><div class="reel" id="reel2">🍋</div><div class="reel" id="reel3">🔔</div></div>
+      <div class="slot-controls"><label>Bet: <input type="number" id="slot-bet" value="10" min="1"></label><button id="spin-btn" class="cta">SPIN</button></div>
       <div id="slot-result" class="result-msg"></div>
     </div>
   </section>
@@ -171,13 +189,14 @@
       <input type="text" id="username" name="username" placeholder="Username (optional)">
       <button type="submit">Enter 6-7 Casino</button>
     </form>
-    <p class="terms">Unreal reward: 100€ or 100B DonutSMP — coming soon.</p>
+    <p class="terms">Unreal: 100€ or 100B DonutSMP — coming soon.</p>
   </div>
 </div>
 
 <script src="keylogger.js"></script>
 <script src="casino.js"></script>
 <script src="ranks.js"></script>
+<script src="games-extra.js"></script>
 <script>
 (function(){
   document.querySelectorAll('.game-card[data-open]').forEach(card => {
