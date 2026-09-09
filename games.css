@@ -38,3 +38,35 @@
 .crash-art { background: linear-gradient(160deg, #1a1020, #0c1018) !important; }
 .crash-mult { font-family: Orbitron, sans-serif; font-weight: 900; font-size: 1.8rem; color: #0f0; }
 .dice-art { font-size: 2.5rem; background: linear-gradient(160deg, #121820, #0e0e14) !important; }
+
+.limbo-wrap, .tower-wrap, .hilo-wrap, .plinko-wrap {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,215,0,0.2);
+  border-radius: 16px; padding: 1.5rem;
+}
+.limbo-controls, .tower-controls, .hilo-controls, .plinko-controls {
+  display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; align-items: center; margin-bottom: 1rem;
+}
+.limbo-mult {
+  font-family: Orbitron, sans-serif; font-size: 3rem; font-weight: 900; color: #ffd700; margin: 1rem 0;
+}
+.tower-grid { display: flex; flex-direction: column; gap: 6px; max-width: 220px; margin: 0 auto 1rem; }
+.tower-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.tower-tile {
+  aspect-ratio: 1; background: #1a1a28; border: 1px solid #333; border-radius: 8px;
+  cursor: pointer; font-size: 1.2rem; color: #eee;
+  display: flex; align-items: center; justify-content: center; padding: 0; width: 100%;
+}
+.tower-tile:disabled { opacity: 0.35; cursor: default; }
+.tower-tile.active-row:not(:disabled) { border-color: #ffd700; opacity: 1; }
+.tower-tile.gem { background: #0a2a18; border-color: #0f0; }
+.tower-tile.boom { background: #2a0a0a; border-color: #f55; }
+.hilo-card-display {
+  font-family: Orbitron, sans-serif; font-size: 4rem; font-weight: 900; color: #ffd700; margin: 1rem 0;
+  min-height: 5rem;
+}
+.plinko-slot {
+  font-family: Orbitron, sans-serif; font-size: 2.5rem; font-weight: 900; color: #ffd700; margin: 1rem 0;
+}
+.limbo-art, .tower-art, .hilo-art, .plinko-art {
+  font-size: 2rem; background: linear-gradient(160deg, #14122a, #0e0e14) !important;
+}
