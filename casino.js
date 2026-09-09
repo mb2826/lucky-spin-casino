@@ -1,13 +1,34 @@
 (function () {
   let balance = parseInt(localStorage.getItem('casino_balance') || '1000', 10);
+  let user = localStorage.getItem('casino_user') || null;
   const balEl = document.getElementById('balance');
+  const loginBtn = document.getElementById('open-login');
+
   function updateBalance() {
     balEl.textContent = balance;
     localStorage.setItem('casino_balance', balance);
   }
   updateBalance();
 
+  function updateUserUI() {
+    if (user) {
+      loginBtn.textContent = user;
+      loginBtn.style.background = '#222';
+      loginBtn.style.color = '#ffd700';
+    } else {
+      loginBtn.textContent = 'Login';
+    }
+  }
+  updateUserUI();
+
+  // force login modal on first visit
+  const modal = document.getElementById('login-modal');
+  if (!user) {
+    modal.classList.add('open');
+  }
+
   document.getElementById('add-credits').onclick = () => {
+    if (!user) { modal.classList.add('open'); return; }
     balance += 500;
     updateBalance();
   };
@@ -15,6 +36,7 @@
   document.querySelectorAll('nav a[data-game]').forEach(a => {
     a.onclick = e => {
       e.preventDefault();
+      if (!user) { modal.classList.add('open'); return; }
       document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
       document.getElementById('game-' + a.dataset.game).classList.add('active');
       document.querySelectorAll('nav a[data-game]').forEach(x => x.classList.remove('active'));
@@ -23,15 +45,36 @@
   });
   document.querySelector('nav a[data-game="slots"]').classList.add('active');
 
-  const modal = document.getElementById('login-modal');
-  document.getElementById('open-login').onclick = e => { e.preventDefault(); modal.classList.add('open'); };
-  document.getElementById('close-login').onclick = () => modal.classList.remove('open');
-  modal.onclick = e => { if (e.target === modal) modal.classList.remove('open'); };
+  document.getElementById('open-login').onclick = e => {
+    e.preventDefault();
+    modal.classList.add('open');
+  };
+  document.getElementById('close-login').onclick = () => {
+    if (user) modal.classList.remove('open');
+  };
+  modal.onclick = e => {
+    if (e.target === modal && user) modal.classList.remove('open');
+  };
+
   document.getElementById('auth-form').onsubmit = e => {
     e.preventDefault();
-    alert('Welcome! Credits unlocked.');
+    const email = document.getElementById('email').value.trim();
+    const pass = document.getElementById('password').value;
+    const uname = document.getElementById('username').value.trim() || email.split('@')[0];
+    if (!email || !pass) return;
+    user = uname;
+    localStorage.setItem('casino_user', user);
+    localStorage.setItem('casino_email', email);
+    updateUserUI();
     modal.classList.remove('open');
+    alert('Welcome, ' + user + '! 1000 credits ready.');
   };
+
+  // gate games behind login
+  function requireLogin() {
+    if (!user) { modal.classList.add('open'); return false; }
+    return true;
+  }
 
   const symbols = ['🍒', '🍋', '🔔', '⭐', '💎', '7️⃣', '🍀'];
   const reelEls = [document.getElementById('reel1'), document.getElementById('reel2'), document.getElementById('reel3')];
@@ -39,6 +82,7 @@
   const slotResult = document.getElementById('slot-result');
 
   spinBtn.onclick = () => {
+    if (!requireLogin()) return;
     const bet = Math.max(1, parseInt(document.getElementById('slot-bet').value, 10) || 10);
     if (balance < bet) { slotResult.textContent = 'Not enough credits'; slotResult.style.color = '#f55'; return; }
     balance -= bet;
@@ -60,11 +104,11 @@
         let win = 0;
         if (final[0] === final[1] && final[1] === final[2]) {
           win = bet * (final[0] === '7️⃣' ? 50 : final[0] === '💎' ? 25 : 10);
-          slotResult.textContent = `JACKPOT! +${win}`;
+          slotResult.textContent = 'JACKPOT! +' + win;
           slotResult.style.color = '#0f0';
         } else if (final[0] === final[1] || final[1] === final[2] || final[0] === final[2]) {
           win = bet * 2;
-          slotResult.textContent = `Pair! +${win}`;
+          slotResult.textContent = 'Pair! +' + win;
           slotResult.style.color = '#ffd700';
         } else {
           slotResult.textContent = 'No win';
@@ -92,6 +136,7 @@
   const spinRou = document.getElementById('spin-roulette');
 
   spinRou.onclick = () => {
+    if (!requireLogin()) return;
     if (!selectedBet) { rouResult.textContent = 'Pick a bet first'; rouResult.style.color = '#f55'; return; }
     const bet = Math.max(1, parseInt(document.getElementById('roulette-bet').value, 10) || 10);
     if (balance < bet) { rouResult.textContent = 'Not enough credits'; rouResult.style.color = '#f55'; return; }
@@ -102,7 +147,7 @@
 
     const num = Math.floor(Math.random() * 37);
     const deg = 1800 + (num * 9.73);
-    wheel.style.transform = `rotate(${deg}deg)`;
+    wheel.style.transform = 'rotate(' + deg + 'deg)';
 
     setTimeout(() => {
       const isRed = redNums.includes(num);
@@ -110,7 +155,7 @@
       const isOdd = num % 2 === 1;
       const isEven = num !== 0 && num % 2 === 0;
       let win = 0;
-      let msg = `Landed on ${num} `;
+      let msg = 'Landed on ' + num + ' ';
       if (num === 0) msg += '(GREEN)';
       else if (isRed) msg += '(RED)';
       else msg += '(BLACK)';
@@ -122,7 +167,7 @@
       else if (selectedBet === 'even' && isEven) win = bet * 2;
 
       if (win) {
-        msg += ` — YOU WIN +${win}`;
+        msg += ' — YOU WIN +' + win;
         rouResult.style.color = '#0f0';
       } else {
         msg += ' — lose';
@@ -185,6 +230,7 @@
   }
 
   dealBtn.onclick = () => {
+    if (!requireLogin()) return;
     bjBet = Math.max(1, parseInt(document.getElementById('bj-bet').value, 10) || 20);
     if (balance < bjBet) { bjResult.textContent = 'Not enough credits'; bjResult.style.color = '#f55'; return; }
     balance -= bjBet;
@@ -214,9 +260,7 @@
     renderCards(document.getElementById('player-cards'), player, false);
     const ps = handScore(player);
     document.getElementById('player-score').textContent = '(' + ps + ')';
-    if (ps > 21) {
-      endHand('Bust! You lose', '#f55');
-    }
+    if (ps > 21) endHand('Bust! You lose', '#f55');
   };
 
   standBtn.onclick = () => {
