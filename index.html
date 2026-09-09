@@ -29,6 +29,10 @@
     <a href="#" data-game="mines">Mines</a>
     <a href="#" data-game="crash">Crash</a>
     <a href="#" data-game="dice">Dice</a>
+    <a href="#" data-game="limbo">Limbo</a>
+    <a href="#" data-game="tower">Tower</a>
+    <a href="#" data-game="hilo">Hi-Lo</a>
+    <a href="#" data-game="plinko">Plinko</a>
     <a href="#" data-game="slots">Slots</a>
     <a href="#" data-game="roulette">Roulette</a>
     <a href="#" data-game="blackjack">Blackjack</a>
@@ -48,6 +52,10 @@
       <button class="game-card" data-open="mines"><div class="card-art mines-art"><span>💣</span><span>💎</span><span>💣</span></div><div class="card-body"><span class="card-name">Mines</span><span class="card-desc">5×5 grid · cash out</span></div></button>
       <button class="game-card" data-open="crash"><div class="card-art crash-art"><span class="crash-mult">1.00x</span></div><div class="card-body"><span class="card-name">Crash</span><span class="card-desc">Cash out before it crashes</span></div></button>
       <button class="game-card" data-open="dice"><div class="card-art dice-art"><span>🎲</span></div><div class="card-body"><span class="card-name">Dice</span><span class="card-desc">Roll over / under</span></div></button>
+      <button class="game-card" data-open="limbo"><div class="card-art limbo-art"><span>📈</span></div><div class="card-body"><span class="card-name">Limbo</span><span class="card-desc">Target multiplier</span></div></button>
+      <button class="game-card" data-open="tower"><div class="card-art tower-art"><span>🗼</span></div><div class="card-body"><span class="card-name">Tower</span><span class="card-desc">Climb · avoid traps</span></div></button>
+      <button class="game-card" data-open="hilo"><div class="card-art hilo-art"><span>🃏</span></div><div class="card-body"><span class="card-name">Hi-Lo</span><span class="card-desc">Higher or lower</span></div></button>
+      <button class="game-card" data-open="plinko"><div class="card-art plinko-art"><span>⚪</span></div><div class="card-body"><span class="card-name">Plinko</span><span class="card-desc">Drop the ball</span></div></button>
       <button class="game-card" data-open="slots"><div class="card-art slots-art"><span>🍒</span><span>7️⃣</span><span>💎</span></div><div class="card-body"><span class="card-name">Neon Reels</span><span class="card-desc">3-reel slots · jackpots</span></div></button>
       <button class="game-card" data-open="roulette"><div class="card-art roulette-art"><div class="art-wheel"></div></div><div class="card-body"><span class="card-name">Roulette</span><span class="card-desc">European · red/black/0</span></div></button>
       <button class="game-card" data-open="blackjack"><div class="card-art bj-art"><span class="mini-card">A♠</span><span class="mini-card red">K♥</span></div><div class="card-body"><span class="card-name">Blackjack</span><span class="card-desc">Beat the dealer · 21</span></div></button>
@@ -136,6 +144,65 @@
     </div>
   </section>
 
+  <section id="game-limbo" class="game-panel">
+    <h2 class="neon-title">Limbo</h2>
+    <p class="subtitle">Pick a target multiplier. Result must reach it.</p>
+    <div class="limbo-wrap">
+      <div class="limbo-mult" id="limbo-result-mult">—</div>
+      <div class="limbo-controls">
+        <label>Bet <input type="number" id="limbo-bet" value="25" min="1"></label>
+        <label>Target <input type="number" id="limbo-target" value="2" min="1.01" step="0.01"></label>
+        <button id="limbo-play" class="cta">PLAY</button>
+      </div>
+      <div id="limbo-result" class="result-msg"></div>
+    </div>
+  </section>
+
+  <section id="game-tower" class="game-panel">
+    <h2 class="neon-title">Tower</h2>
+    <p class="subtitle">Climb floor by floor. Avoid the traps.</p>
+    <div class="tower-wrap">
+      <div class="tower-controls">
+        <label>Bet <input type="number" id="tower-bet" value="25" min="1"></label>
+        <label>Risk <select id="tower-diff"><option value="1">Easy</option><option value="2" selected>Medium</option><option value="3">Hard</option></select></label>
+        <button id="tower-start" class="cta">START</button>
+        <button id="tower-cashout" class="cta" disabled>CASH OUT</button>
+      </div>
+      <div class="mines-info">Mult: <span id="tower-mult">1.00</span>x</div>
+      <div class="tower-grid" id="tower-grid"></div>
+      <div id="tower-result" class="result-msg"></div>
+    </div>
+  </section>
+
+  <section id="game-hilo" class="game-panel">
+    <h2 class="neon-title">Hi-Lo</h2>
+    <p class="subtitle">Will the next card be higher or lower?</p>
+    <div class="hilo-wrap">
+      <div class="hilo-card-display" id="hilo-card">?</div>
+      <div class="hilo-controls">
+        <label>Bet <input type="number" id="hilo-bet" value="25" min="1"></label>
+        <button id="hilo-start" class="cta">DEAL</button>
+        <button id="hilo-higher" class="cta" disabled>HIGHER</button>
+        <button id="hilo-lower" class="cta" disabled>LOWER</button>
+      </div>
+      <div id="hilo-result" class="result-msg"></div>
+    </div>
+  </section>
+
+  <section id="game-plinko" class="game-panel">
+    <h2 class="neon-title">Plinko</h2>
+    <p class="subtitle">Drop the ball. Land a multiplier.</p>
+    <div class="plinko-wrap">
+      <div class="plinko-slot" id="plinko-slot">—</div>
+      <div class="plinko-controls">
+        <label>Bet <input type="number" id="plinko-bet" value="25" min="1"></label>
+        <label>Risk <select id="plinko-risk"><option value="low">Low</option><option value="med" selected>Medium</option><option value="high">High</option></select></label>
+        <button id="plinko-play" class="cta">DROP</button>
+      </div>
+      <div id="plinko-result" class="result-msg"></div>
+    </div>
+  </section>
+
   <section id="game-slots" class="game-panel">
     <h2 class="neon-title">Neon Reels</h2>
     <div class="slot-machine">
@@ -198,6 +265,7 @@
 <script src="casino.js"></script>
 <script src="ranks.js"></script>
 <script src="games-extra.js"></script>
+<script src="games-more.js"></script>
 <script>
 (function(){
   document.querySelectorAll('.game-card[data-open]').forEach(card => {
