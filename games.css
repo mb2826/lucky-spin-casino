@@ -1,0 +1,40 @@
+.mines-wrap, .crash-wrap, .dice-wrap {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,215,0,0.2);
+  border-radius: 16px; padding: 1.5rem;
+}
+.mines-controls, .crash-controls, .dice-controls {
+  display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; align-items: center; margin-bottom: 1rem;
+}
+.mines-controls label, .crash-controls label, .dice-controls label { color: #aaa; font-size: 0.9rem; }
+.mines-controls select {
+  background: #0e0e16; color: #fff; border: 1px solid #444; border-radius: 6px; padding: 0.4rem;
+}
+.mines-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+  max-width: 320px; margin: 0 auto 1rem;
+}
+.mine-tile {
+  aspect-ratio: 1; background: #1a1a28; border: 1px solid #333; border-radius: 8px;
+  cursor: pointer; font-size: 1.4rem; color: #eee;
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; padding: 0;
+}
+.mine-tile:hover { background: #252538; border-color: #ffd700; }
+.mine-tile.gem { background: #0a2a18; border-color: #0f0; }
+.mine-tile.boom { background: #2a0a0a; border-color: #f55; }
+.mines-info { color: #888; margin-bottom: 0.5rem; font-family: Orbitron, sans-serif; font-size: 0.9rem; }
+.mines-info span { color: #ffd700; font-weight: 700; }
+.crash-display {
+  font-family: Orbitron, sans-serif; font-size: 3.5rem; font-weight: 900;
+  color: #ffd700; margin: 1rem 0 1.5rem;
+}
+.dice-display {
+  font-family: Orbitron, sans-serif; font-size: 4rem; font-weight: 900;
+  color: #ffd700; margin: 1rem 0; min-height: 5rem;
+}
+.dice-odds { color: #888; margin: 0.8rem 0; font-size: 0.9rem; }
+.dice-odds span { color: #ffd700; font-weight: 700; }
+.mines-art { font-size: 1.8rem; background: linear-gradient(160deg, #1a1018, #0e0e14) !important; }
+.crash-art { background: linear-gradient(160deg, #1a1020, #0c1018) !important; }
+.crash-mult { font-family: Orbitron, sans-serif; font-weight: 900; font-size: 1.8rem; color: #0f0; }
+.dice-art { font-size: 2.5rem; background: linear-gradient(160deg, #121820, #0e0e14) !important; }
