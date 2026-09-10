@@ -18,9 +18,14 @@
     return true;
   }
   function houseWin() {
+    /* house wins ~52%; pity forces player win after 4 losses */
     let pity = parseInt(localStorage.getItem('casino_loss_streak') || '0', 10);
-    if (pity >= 4) return false;
+    if (pity >= 4) { localStorage.setItem('casino_loss_streak', '0'); return false; }
     return Math.random() >= 0.48;
+  }
+  function clampBet(val) {
+    const bal = getBal();
+    return Math.max(1, Math.min(bal, Math.max(1, parseInt(val, 10) || 1)));
   }
   function noteLoss() {
     let s = parseInt(localStorage.getItem('casino_loss_streak') || '0', 10) + 1;
@@ -64,7 +69,7 @@
   const ms = document.getElementById('mines-start');
   if (ms) ms.onclick = () => {
     if (!requireUser()) return;
-    minesBet = Math.max(1, parseInt(document.getElementById('mines-bet').value, 10) || 25);
+    minesBet = clampBet(document.getElementById('mines-bet').value);
     minesCount = parseInt(document.getElementById('mines-count').value, 10) || 5;
     let bal = getBal();
     if (bal < minesBet) { document.getElementById('mines-result').textContent = 'Not enough credits'; return; }
@@ -122,7 +127,7 @@
   const cp = document.getElementById('crash-play');
   if (cp) cp.onclick = () => {
     if (!requireUser() || crashRunning) return;
-    crashBet = Math.max(1, parseInt(document.getElementById('crash-bet').value, 10) || 25);
+    crashBet = clampBet(document.getElementById('crash-bet').value);
     let bal = getBal();
     if (bal < crashBet) { document.getElementById('crash-result').textContent = 'Not enough credits'; return; }
     bal -= crashBet; setBal(bal); addWager(crashBet);
@@ -185,7 +190,7 @@
   const dr = document.getElementById('dice-roll-btn');
   if (dr) dr.onclick = () => {
     if (!requireUser()) return;
-    const bet = Math.max(1, parseInt(document.getElementById('dice-bet').value, 10) || 25);
+    const bet = clampBet(document.getElementById('dice-bet').value);
     const t = Math.max(2, Math.min(98, parseInt(document.getElementById('dice-target').value, 10) || 50));
     let bal = getBal();
     if (bal < bet) { document.getElementById('dice-result').textContent = 'Not enough credits'; return; }
