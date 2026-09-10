@@ -11,6 +11,15 @@
 <link rel="stylesheet" href="games.css">
 <link rel="stylesheet" href="lobby-polish.css">
 <link rel="stylesheet" href="ds-layout.css">
+<link rel="stylesheet" href="photo-promo-login.css">
+<link rel="stylesheet" href="photo-promo-invite.css">
+<link rel="stylesheet" href="photo-promo-case.css">
+<link rel="stylesheet" href="photo-mines.css">
+<link rel="stylesheet" href="photo-crash.css">
+<link rel="stylesheet" href="photo-dice.css">
+<link rel="stylesheet" href="photo-limbo.css">
+<link rel="stylesheet" href="photo-hilo.css">
+<link rel="stylesheet" href="photo-plinko.css">
 </head>
 <body>
 <div class="bg-overlay"></div>
@@ -48,7 +57,7 @@
           <p>One username · climb ranks</p>
           <button class="promo-btn" id="promo-login">Log in</button>
         </div>
-        <div class="promo-art">🏆</div>
+        <img class="promo-img" src="profile-banner.jpg" alt="Sign in" loading="lazy">
       </div>
       <div class="promo-card promo-invite">
         <div class="promo-text">
@@ -56,7 +65,7 @@
           <p>Get bonus on their deposits</p>
           <button class="promo-btn">Log in to earn</button>
         </div>
-        <div class="promo-art">📩📩</div>
+        <img class="promo-img" src="referral-hero.jpg" alt="Invite" loading="lazy">
       </div>
       <div class="promo-card promo-case">
         <div class="promo-text">
@@ -64,7 +73,7 @@
           <p>One free case every day</p>
           <button class="promo-btn">Log in to open</button>
         </div>
-        <div class="promo-art">🧰</div>
+        <img class="promo-img" src="daily-banner.jpg" alt="Daily case" loading="lazy">
       </div>
     </div>
 
@@ -75,14 +84,14 @@
 
     <div class="game-grid ds-grid" id="game-grid">
       <button class="game-card" data-open="roulette" data-name="roulette"><div class="card-art roulette-art"><div class="art-wheel"></div></div><div class="card-body"><span class="card-name">ROULETTE</span></div></button>
-      <button class="game-card" data-open="mines" data-name="mines"><div class="card-art mines-art"><span>💎</span><span>⬛</span><span>💎</span></div><div class="card-body"><span class="card-name">MINES</span></div></button>
-      <button class="game-card" data-open="crash" data-name="crash"><div class="card-art crash-art"><span style="font-size:2.2rem">🚀</span></div><div class="card-body"><span class="card-name">CRASH</span></div></button>
+      <button class="game-card" data-open="mines" data-name="mines"><div class="card-art mines-art"><img src="mines.jpg" alt="Mines" loading="lazy"></div><div class="card-body"><span class="card-name">MINES</span></div></button>
+      <button class="game-card" data-open="crash" data-name="crash"><div class="card-art crash-art"><img src="crash.jpg" alt="Crash" loading="lazy"></div><div class="card-body"><span class="card-name">CRASH</span></div></button>
       <button class="game-card" data-open="tower" data-name="tower"><div class="card-art tower-art"><span style="font-size:2.2rem">🗼</span></div><div class="card-body"><span class="card-name">TOWER</span></div></button>
       <button class="game-card" data-open="coinflip" data-name="coinflip"><div class="card-art coinflip-art"><div class="art-coin">H</div></div><div class="card-body"><span class="card-name">COINFLIP</span></div></button>
-      <button class="game-card" data-open="dice" data-name="dice"><div class="card-art dice-art"><span style="font-size:2.2rem">🎲</span></div><div class="card-body"><span class="card-name">DICE</span></div></button>
-      <button class="game-card" data-open="limbo" data-name="limbo"><div class="card-art limbo-art"><span>⚡</span></div><div class="card-body"><span class="card-name">LIMBO</span></div></button>
-      <button class="game-card" data-open="hilo" data-name="hilo"><div class="card-art hilo-art"><span>🃏</span><span>⬆⬇</span></div><div class="card-body"><span class="card-name">HI-LO</span></div></button>
-      <button class="game-card" data-open="plinko" data-name="plinko"><div class="card-art plinko-art"><span style="font-size:2rem">📩</span></div><div class="card-body"><span class="card-name">PLINKO</span></div></button>
+      <button class="game-card" data-open="dice" data-name="dice"><div class="card-art dice-art"><img src="dice.jpg" alt="Dice" loading="lazy"></div><div class="card-body"><span class="card-name">DICE</span></div></button>
+      <button class="game-card" data-open="limbo" data-name="limbo"><div class="card-art limbo-art"><img src="limbo.jpg" alt="Limbo" loading="lazy"></div><div class="card-body"><span class="card-name">LIMBO</span></div></button>
+      <button class="game-card" data-open="hilo" data-name="hilo"><div class="card-art hilo-art"><img src="hilo.jpg" alt="Hi-Lo" loading="lazy"></div><div class="card-body"><span class="card-name">HI-LO</span></div></button>
+      <button class="game-card" data-open="plinko" data-name="plinko"><div class="card-art plinko-art"><img src="plinko.jpg" alt="Plinko" loading="lazy"></div><div class="card-body"><span class="card-name">PLINKO</span></div></button>
       <button class="game-card" data-open="slots" data-name="slots"><div class="card-art slots-art"><span>🍒</span><span>7️⃣</span><span>💎</span></div><div class="card-body"><span class="card-name">SLOTS</span></div></button>
       <button class="game-card" data-open="blackjack" data-name="blackjack"><div class="card-art bj-art"><span class="mini-card">A♠</span><span class="mini-card red">K♥</span></div><div class="card-body"><span class="card-name">BLACKJACK</span></div></button>
       <button class="game-card" data-open="ranks" data-name="ranks"><div class="card-art ranks-art"><span style="font-size:2.2rem">🏆</span></div><div class="card-body"><span class="card-name">RANKS</span></div></button>
