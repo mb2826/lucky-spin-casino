@@ -64,6 +64,15 @@ header, .ds-header {
 .card-art {
   background: linear-gradient(160deg, #3a2060, #1a0a30) !important;
   height: 150px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+.card-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
 }
 .coinflip-art { background: radial-gradient(circle at 50% 60%, #4a3080, #1a0a30) !important; }
 .mines-art { background: linear-gradient(160deg, #3a2060, #1a1030) !important; }
@@ -75,15 +84,7 @@ header, .ds-header {
   background: radial-gradient(ellipse at 50% 80%, #2a1848, #120820) !important;
   position: relative;
 }
-.limbo-art::before {
-  content: '';
-  position: absolute;
-  left: 50%; top: 18%; bottom: 22%;
-  width: 18px; margin-left: -9px;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #fff6a0, #ffd700 30%, #ff9a00 70%, #c47800);
-  box-shadow: 0 0 24px 8px rgba(255, 200, 0, 0.55), 0 0 48px 4px rgba(255, 160, 0, 0.35);
-}
+.limbo-art::before { display: none !important; }
 .limbo-art span { position: relative; z-index: 1; opacity: 0.85; }
 
 .neon-title {
@@ -93,7 +94,6 @@ header, .ds-header {
   font-family: Orbitron, sans-serif;
 }
 
-/* Modal polish */
 .modal {
   display: none; position: fixed; inset: 0; z-index: 500;
   background: rgba(8, 4, 20, 0.88); backdrop-filter: blur(8px);
@@ -130,7 +130,6 @@ header, .ds-header {
 .close:hover { color: #ffd700; }
 .terms { color: #7a6a9a; font-size: 0.78rem; text-align: center; margin-top: 1rem; }
 
-/* Rank ladder */
 .rank-ladder { display: flex; flex-direction: column; gap: 0.6rem; max-width: 480px; margin: 1rem auto; }
 .rank-row {
   display: flex; align-items: center; gap: 0.75rem;
@@ -144,7 +143,6 @@ header, .ds-header {
 .rank-row .r-xp { color: #a89cc8; font-size: 0.8rem; }
 .rank-row .r-reward { color: #ffd700; font-size: 0.78rem; }
 
-/* CTA buttons */
 .cta {
   background: linear-gradient(135deg, #9b4dff, #6a2cff);
   color: #fff; border: none; font-weight: 700; padding: 0.65rem 1.4rem;
@@ -155,3 +153,14 @@ header, .ds-header {
 .cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
 .cta:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 .result-msg { margin-top: 0.8rem; font-weight: 600; min-height: 1.4em; }
+
+.promo-img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 0 18px rgba(255, 200, 0, 0.25);
+}
+.promo-card { overflow: hidden; }
+.promo-card .promo-art { display: none; }
