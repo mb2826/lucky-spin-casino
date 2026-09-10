@@ -114,7 +114,7 @@
 }
 .ds-grid .card-art {
   height: 148px !important;
-  background: linear-gradient(160deg, #3a2060, #1a0a30) !important;
+  background-color: #1a0a30;
 }
 .ds-grid .card-body {
   padding: 0.7rem 0.95rem 0.9rem !important;

@@ -34,10 +34,10 @@
 }
 .dice-odds { color: #888; margin: 0.8rem 0; font-size: 0.9rem; }
 .dice-odds span { color: #ffd700; font-weight: 700; }
-.mines-art { font-size: 1.8rem; background: linear-gradient(160deg, #1a1018, #0e0e14) !important; }
-.crash-art { background: linear-gradient(160deg, #1a1020, #0c1018) !important; }
+.mines-art { font-size: 1.8rem; }
+.crash-art { }
 .crash-mult { font-family: Orbitron, sans-serif; font-weight: 900; font-size: 1.8rem; color: #0f0; }
-.dice-art { font-size: 2.5rem; background: linear-gradient(160deg, #121820, #0e0e14) !important; }
+.dice-art { font-size: 2.5rem; }
 
 .limbo-wrap, .tower-wrap, .hilo-wrap, .plinko-wrap {
   background: rgba(255,255,255,0.03); border: 1px solid rgba(255,215,0,0.2);
@@ -68,5 +68,5 @@
   font-family: Orbitron, sans-serif; font-size: 2.5rem; font-weight: 900; color: #ffd700; margin: 1rem 0;
 }
 .limbo-art, .tower-art, .hilo-art, .plinko-art {
-  font-size: 2rem; background: linear-gradient(160deg, #14122a, #0e0e14) !important;
+  font-size: 2rem;
 }
