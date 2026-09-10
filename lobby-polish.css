@@ -62,7 +62,7 @@ header, .ds-header {
   box-shadow: 0 16px 40px rgba(120, 40, 200, 0.4), 0 0 0 1px rgba(255,215,0,0.25) !important;
 }
 .card-art {
-  background: linear-gradient(160deg, #3a2060, #1a0a30) !important;
+  background-color: #1a0a30;
   height: 150px !important;
   padding: 0 !important;
   overflow: hidden !important;
@@ -73,19 +73,8 @@ header, .ds-header {
   object-fit: cover;
   display: block;
   border: none;
+  opacity: 0 !important;
 }
-.coinflip-art { background: radial-gradient(circle at 50% 60%, #4a3080, #1a0a30) !important; }
-.mines-art { background: linear-gradient(160deg, #3a2060, #1a1030) !important; }
-.crash-art { background: linear-gradient(160deg, #2a1850, #1a0a30) !important; }
-.tower-art, .hilo-art, .plinko-art, .dice-art, .slots-art, .roulette-art, .bj-art, .ranks-art {
-  background: linear-gradient(160deg, #3a2060, #1a0a30) !important;
-}
-.limbo-art {
-  background: radial-gradient(ellipse at 50% 80%, #2a1848, #120820) !important;
-  position: relative;
-}
-.limbo-art::before { display: none !important; }
-.limbo-art span { position: relative; z-index: 1; opacity: 0.85; }
 
 .neon-title {
   background: linear-gradient(90deg, #fff, #ffd700, #c44dff) !important;
