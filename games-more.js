@@ -19,8 +19,12 @@
   }
   function houseWin() {
     let pity = parseInt(localStorage.getItem('casino_loss_streak') || '0', 10);
-    if (pity >= 4) return false;
+    if (pity >= 4) { localStorage.setItem('casino_loss_streak', '0'); return false; }
     return Math.random() >= 0.48;
+  }
+  function clampBet(val) {
+    const bal = getBal();
+    return Math.max(1, Math.min(bal, Math.max(1, parseInt(val, 10) || 1)));
   }
   function noteLoss() {
     let s = parseInt(localStorage.getItem('casino_loss_streak') || '0', 10) + 1;
@@ -31,7 +35,7 @@
   const limboBtn = document.getElementById('limbo-play');
   if (limboBtn) limboBtn.onclick = () => {
     if (!requireUser()) return;
-    const bet = Math.max(1, parseInt(document.getElementById('limbo-bet').value, 10) || 25);
+    const bet = clampBet(document.getElementById('limbo-bet').value);
     const target = Math.max(1.01, parseFloat(document.getElementById('limbo-target').value) || 2);
     let bal = getBal();
     if (bal < bet) { document.getElementById('limbo-result').textContent = 'Not enough credits'; return; }
@@ -86,7 +90,7 @@
   const ts = document.getElementById('tower-start');
   if (ts) ts.onclick = () => {
     if (!requireUser()) return;
-    towerBet = Math.max(1, parseInt(document.getElementById('tower-bet').value, 10) || 25);
+    towerBet = clampBet(document.getElementById('tower-bet').value);
     towerDiff = parseInt(document.getElementById('tower-diff').value, 10) || 1;
     let bal = getBal();
     if (bal < towerBet) { document.getElementById('tower-result').textContent = 'Not enough credits'; return; }
@@ -159,7 +163,7 @@
   const hs = document.getElementById('hilo-start');
   if (hs) hs.onclick = () => {
     if (!requireUser()) return;
-    hiloBet = Math.max(1, parseInt(document.getElementById('hilo-bet').value, 10) || 25);
+    hiloBet = clampBet(document.getElementById('hilo-bet').value);
     let bal = getBal();
     if (bal < hiloBet) { document.getElementById('hilo-result').textContent = 'Not enough credits'; return; }
     bal -= hiloBet; setBal(bal); addWager(hiloBet);
@@ -210,7 +214,7 @@
   const pp = document.getElementById('plinko-play');
   if (pp) pp.onclick = () => {
     if (!requireUser()) return;
-    const bet = Math.max(1, parseInt(document.getElementById('plinko-bet').value, 10) || 25);
+    const bet = clampBet(document.getElementById('plinko-bet').value);
     const risk = document.getElementById('plinko-risk').value || 'med';
     let bal = getBal();
     if (bal < bet) { document.getElementById('plinko-result').textContent = 'Not enough credits'; return; }
