@@ -1,14 +1,24 @@
-/* Purple-gold voxel casino theme matching provided art style */
-body { background: #1a0a2e !important; }
+/* Purple-gold voxel / neon lobby polish — 6-7 Casino */
+body { background: #1a0a2e !important; color: #e8e0ff; }
 .bg-overlay {
+  position: fixed; inset: 0; z-index: -2; pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 60, 255, 0.35), transparent 55%),
-    radial-gradient(ellipse 50% 40% at 90% 80%, rgba(255, 180, 0, 0.12), transparent),
-    radial-gradient(ellipse 40% 30% at 10% 60%, rgba(80, 40, 160, 0.2), transparent),
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 60, 255, 0.38), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 80%, rgba(255, 180, 0, 0.14), transparent),
+    radial-gradient(ellipse 40% 30% at 10% 60%, rgba(80, 40, 160, 0.22), transparent),
     #1a0a2e !important;
 }
-header {
-  background: rgba(20, 10, 40, 0.95) !important;
+.grid-lines {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(160,100,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160,100,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+}
+
+header, .ds-header {
+  background: rgba(18, 8, 36, 0.94) !important;
   border-bottom: 1px solid rgba(180, 120, 255, 0.2) !important;
 }
 .logo {
@@ -16,6 +26,33 @@ header {
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
+
+.rank-chip {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(160,100,255,0.25);
+  padding: 0.32rem 0.75rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700;
+  min-width: 120px;
+}
+#rank-icon { font-size: 1.1rem; }
+#rank-name { font-family: Orbitron, sans-serif; font-size: 0.75rem; letter-spacing: 0.5px; color: #ffd700; }
+.rank-xp-bar { flex: 1; height: 4px; background: #22183a; border-radius: 2px; overflow: hidden; min-width: 40px; }
+#rank-xp-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ffd700, #ff6b00); transition: width 0.4s ease; }
+
+.balance-bar {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.28);
+  padding: 0.38rem 0.85rem; border-radius: 999px; font-weight: 700;
+}
+.bal-label { font-size: 0.62rem; letter-spacing: 1px; color: #888; }
+#balance { color: #ffd700; font-size: 1.15rem; font-family: Orbitron, sans-serif; }
+.coin-icon { font-size: 1rem; }
+.small-btn {
+  background: transparent; color: #ffd700; border: 1px solid rgba(255,215,0,0.5);
+  padding: 0.25rem 0.6rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600;
+}
+.small-btn:hover { background: #ffd700; color: #111; }
+.small-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
 .game-card {
   background: linear-gradient(180deg, #2a1a4a 0%, #1a0a30 100%) !important;
   border: 1px solid rgba(160, 100, 255, 0.25) !important;
@@ -34,7 +71,6 @@ header {
 .tower-art, .hilo-art, .plinko-art, .dice-art, .slots-art, .roulette-art, .bj-art, .ranks-art {
   background: linear-gradient(160deg, #3a2060, #1a0a30) !important;
 }
-/* Limbo — gold beam pillar like the art */
 .limbo-art {
   background: radial-gradient(ellipse at 50% 80%, #2a1848, #120820) !important;
   position: relative;
@@ -49,41 +85,73 @@ header {
   box-shadow: 0 0 24px 8px rgba(255, 200, 0, 0.55), 0 0 48px 4px rgba(255, 160, 0, 0.35);
 }
 .limbo-art span { position: relative; z-index: 1; opacity: 0.85; }
+
 .neon-title {
   background: linear-gradient(90deg, #fff, #ffd700, #c44dff) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
+  font-family: Orbitron, sans-serif;
 }
-nav a.active {
-  color: #ffd700 !important;
-  background: rgba(160, 80, 255, 0.2) !important;
-  box-shadow: 0 0 12px rgba(160, 80, 255, 0.3) !important;
+
+/* Modal polish */
+.modal {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: rgba(8, 4, 20, 0.88); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center;
 }
-.balance-bar {
-  background: rgba(160, 80, 255, 0.15) !important;
-  border: 1px solid rgba(255, 215, 0, 0.35) !important;
+.modal.open { display: flex; }
+.modal-content {
+  background: linear-gradient(160deg, #2a1a4a, #160a30);
+  border: 1px solid rgba(160,100,255,0.4);
+  border-radius: 18px; padding: 2rem 1.8rem; width: min(380px, 92vw);
+  box-shadow: 0 0 60px rgba(120, 40, 200, 0.45);
+  position: relative;
 }
-.cta, .flip-cta {
-  background: linear-gradient(135deg, #9b4dff, #ff6b00, #ffd700) !important;
+.modal-content h2 {
+  font-family: Orbitron, sans-serif; color: #ffd700; margin: 0 0 1.2rem;
+  font-size: 1.25rem; text-align: center;
 }
-.mine-tile, .tower-tile {
-  background: #2a1a48 !important;
-  border-color: #4a3080 !important;
+.modal-content input {
+  width: 100%; box-sizing: border-box; margin-bottom: 0.7rem;
+  background: #1a1030; border: 1px solid rgba(160,100,255,0.3);
+  color: #eee; padding: 0.7rem 0.9rem; border-radius: 10px; font-size: 0.95rem;
 }
-.mine-tile:hover, .tower-tile.active-row:not(:disabled) {
-  border-color: #ffd700 !important;
-  background: #3a2860 !important;
+.modal-content input:focus { outline: none; border-color: #ffd700; }
+.modal-content button[type="submit"] {
+  width: 100%; padding: 0.8rem; margin-top: 0.4rem;
+  background: linear-gradient(135deg, #f5a623, #ffcc00);
+  border: none; border-radius: 10px; color: #111; font-weight: 800;
+  font-size: 1rem; cursor: pointer;
 }
-.mines-wrap, .crash-wrap, .dice-wrap, .limbo-wrap, .tower-wrap, .hilo-wrap, .plinko-wrap,
-.slot-machine, .roulette-wrap, .bj-table, .coin-arena {
-  background: rgba(40, 20, 70, 0.5) !important;
-  border: 1px solid rgba(160, 100, 255, 0.3) !important;
+.close {
+  position: absolute; top: 0.8rem; right: 1rem; font-size: 1.5rem;
+  color: #888; cursor: pointer; line-height: 1;
 }
-.card-name {
-  background: linear-gradient(90deg, #fff, #ffd700) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
+.close:hover { color: #ffd700; }
+.terms { color: #7a6a9a; font-size: 0.78rem; text-align: center; margin-top: 1rem; }
+
+/* Rank ladder */
+.rank-ladder { display: flex; flex-direction: column; gap: 0.6rem; max-width: 480px; margin: 1rem auto; }
+.rank-row {
+  display: flex; align-items: center; gap: 0.75rem;
+  background: linear-gradient(90deg, #22183a, #1a1030);
+  border: 1px solid rgba(160,100,255,0.2); border-radius: 12px;
+  padding: 0.7rem 1rem;
 }
-.limbo-mult {
-  text-shadow: 0 0 30px rgba(255, 200, 0, 0.5);
+.rank-row.current { border-color: rgba(255,215,0,0.55); box-shadow: 0 0 16px rgba(255,200,0,0.2); }
+.rank-row .r-icon { font-size: 1.4rem; }
+.rank-row .r-name { font-family: Orbitron, sans-serif; font-weight: 700; color: #eee; flex: 1; }
+.rank-row .r-xp { color: #a89cc8; font-size: 0.8rem; }
+.rank-row .r-reward { color: #ffd700; font-size: 0.78rem; }
+
+/* CTA buttons */
+.cta {
+  background: linear-gradient(135deg, #9b4dff, #6a2cff);
+  color: #fff; border: none; font-weight: 700; padding: 0.65rem 1.4rem;
+  border-radius: 10px; cursor: pointer; font-size: 0.95rem;
+  box-shadow: 0 0 18px rgba(140, 60, 255, 0.4);
+  transition: transform 0.15s, filter 0.15s;
 }
+.cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.cta:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.result-msg { margin-top: 0.8rem; font-weight: 600; min-height: 1.4em; }

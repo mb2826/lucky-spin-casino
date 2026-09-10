@@ -1,59 +1,142 @@
-/* DonutSurge-like layout */
+/* DonutSurge-like layout — purple/gold 6-7 Casino */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700&display=swap');
+
 .ds-header {
   display: flex; align-items: center; justify-content: space-between;
   gap: 1rem; padding: 0.85rem 1.5rem; flex-wrap: wrap;
+  background: rgba(18, 8, 36, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(180, 120, 255, 0.22);
+  position: sticky; top: 0; z-index: 100;
 }
 .ds-header .logo {
-  font-family: Orbitron, sans-serif; font-weight: 900; font-size: 1.4rem;
-  letter-spacing: 1px;
+  font-family: Orbitron, sans-serif; font-weight: 900; font-size: 1.45rem;
+  letter-spacing: 1.5px;
+  background: linear-gradient(90deg, #ffd700, #e0a0ff, #ffd700);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: logoShine 4s linear infinite;
 }
-.ds-nav { display: flex; gap: 0.5rem; }
-.header-right { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+@keyframes logoShine {
+  to { background-position: 200% center; }
+}
+.ds-nav { display: flex; gap: 0.4rem; }
+.ds-nav a {
+  color: #a89cc8; text-decoration: none; font-weight: 600; font-size: 0.92rem;
+  padding: 0.45rem 0.95rem; border-radius: 8px; transition: all 0.15s;
+}
+.ds-nav a:hover { color: #fff; background: rgba(160,100,255,0.12); }
+.ds-nav a.active {
+  color: #ffd700; background: rgba(160, 80, 255, 0.22);
+  box-shadow: 0 0 14px rgba(160, 80, 255, 0.35);
+}
+.header-right { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; }
 .btn-login {
   background: linear-gradient(135deg, #f5a623, #ffcc00) !important;
-  color: #111 !important; font-weight: 800; padding: 0.45rem 1.1rem !important;
-  border-radius: 8px !important; text-decoration: none;
+  color: #111 !important; font-weight: 800; padding: 0.5rem 1.25rem !important;
+  border-radius: 9px !important; text-decoration: none;
+  box-shadow: 0 0 18px rgba(255, 200, 0, 0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-.ds-lobby { max-width: 1100px !important; text-align: left !important; padding-top: 1.5rem !important; }
+.btn-login:hover { transform: translateY(-1px); box-shadow: 0 0 26px rgba(255, 200, 0, 0.5); }
+
+.ds-lobby { max-width: 1120px !important; text-align: left !important; padding: 1.6rem 1.2rem 3rem !important; }
 .ds-hero {
-  font-size: 1.35rem; font-weight: 600; color: #e8e0ff; margin-bottom: 1.4rem;
-  font-family: Inter, system-ui, sans-serif;
+  font-size: 1.4rem; font-weight: 600; color: #e8e0ff; margin-bottom: 1.5rem;
+  font-family: Inter, system-ui, sans-serif; letter-spacing: -0.01em;
 }
+
 .promo-row {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2.1rem;
 }
 .promo-card {
-  background: linear-gradient(145deg, #2a1a4a, #1a1035);
-  border: 1px solid rgba(160,100,255,0.25);
-  border-radius: 16px; padding: 1.2rem 1.3rem;
+  background: linear-gradient(145deg, #2e1a52, #1a1038);
+  border: 1px solid rgba(160,100,255,0.28);
+  border-radius: 16px; padding: 1.25rem 1.35rem;
   display: flex; justify-content: space-between; align-items: center; gap: 0.8rem;
-  min-height: 140px;
+  min-height: 148px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  position: relative; overflow: hidden;
 }
-.promo-text h3 { font-size: 1.1rem; color: #fff; margin-bottom: 0.35rem; }
-.promo-text p { font-size: 0.85rem; color: #a89cc8; margin-bottom: 0.8rem; }
+.promo-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 90% 20%, rgba(255,200,0,0.08), transparent 55%);
+  pointer-events: none;
+}
+.promo-card:hover {
+  border-color: rgba(255, 215, 0, 0.45);
+  box-shadow: 0 12px 32px rgba(100, 40, 180, 0.35);
+  transform: translateY(-3px);
+}
+.promo-text h3 { font-size: 1.12rem; color: #fff; margin: 0 0 0.35rem; font-weight: 700; }
+.promo-text p { font-size: 0.86rem; color: #a89cc8; margin: 0 0 0.85rem; }
 .promo-btn {
   background: linear-gradient(135deg, #f5a623, #ffcc00);
-  color: #111; border: none; font-weight: 700; padding: 0.45rem 1rem;
-  border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+  color: #111; border: none; font-weight: 700; padding: 0.48rem 1.05rem;
+  border-radius: 8px; cursor: pointer; font-size: 0.86rem;
+  box-shadow: 0 0 12px rgba(255, 200, 0, 0.25);
 }
-.promo-art { font-size: 2.8rem; filter: drop-shadow(0 0 12px rgba(255,200,0,0.35)); }
+.promo-btn:hover { filter: brightness(1.08); }
+.promo-art {
+  font-size: 2.9rem;
+  filter: drop-shadow(0 0 14px rgba(255, 200, 0, 0.4));
+  flex-shrink: 0;
+}
+
 .all-games-head {
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem;
+  margin-bottom: 1.1rem; flex-wrap: wrap; gap: 0.7rem;
 }
-.all-games-head h2 { font-size: 1.15rem; color: #ffd700; font-family: Orbitron, sans-serif; }
+.all-games-head h2 {
+  font-size: 1.18rem; color: #ffd700; font-family: Orbitron, sans-serif;
+  margin: 0; letter-spacing: 0.5px;
+}
 .game-search {
-  background: #1a1030; border: 1px solid rgba(160,100,255,0.3);
-  color: #eee; padding: 0.5rem 1rem; border-radius: 10px; width: 200px;
+  background: #1a1030; border: 1px solid rgba(160,100,255,0.32);
+  color: #eee; padding: 0.55rem 1.05rem; border-radius: 10px; width: 210px;
+  font-size: 0.9rem; outline: none;
 }
+.game-search:focus { border-color: rgba(255, 215, 0, 0.55); box-shadow: 0 0 0 2px rgba(255,215,0,0.12); }
+
 .ds-grid {
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+  gap: 1.15rem !important;
+}
+.ds-grid .game-card {
+  background: linear-gradient(180deg, #2a1a4a 0%, #160a2e 100%) !important;
+  border: 1px solid rgba(160, 100, 255, 0.28) !important;
+  border-radius: 14px !important;
+}
+.ds-grid .game-card:hover {
+  border-color: rgba(255, 215, 0, 0.65) !important;
+  box-shadow: 0 16px 40px rgba(120, 40, 200, 0.45), 0 0 0 1px rgba(255,215,0,0.3) !important;
+  transform: translateY(-6px);
+}
+.ds-grid .card-art {
+  height: 148px !important;
+  background: linear-gradient(160deg, #3a2060, #1a0a30) !important;
+}
+.ds-grid .card-body {
+  padding: 0.7rem 0.95rem 0.9rem !important;
+  background: rgba(12, 6, 24, 0.85) !important;
 }
 .ds-grid .card-name {
-  font-size: 0.85rem !important; letter-spacing: 1px;
-  text-transform: uppercase;
+  font-size: 0.82rem !important; letter-spacing: 1.2px;
+  text-transform: uppercase; color: #f0e8ff !important;
+  font-family: Orbitron, sans-serif !important; font-weight: 700 !important;
 }
-.ds-grid .card-body { padding: 0.65rem 0.9rem 0.85rem !important; }
-@media (max-width: 800px) {
+
+.lobby-foot {
+  color: #6a5a8a; font-size: 0.82rem; margin-top: 1.2rem; text-align: center;
+}
+
+@media (max-width: 860px) {
   .promo-row { grid-template-columns: 1fr; }
+  .ds-header { padding: 0.7rem 1rem; }
+  .ds-header .logo { font-size: 1.2rem; }
+}
+@media (max-width: 520px) {
+  .ds-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
+  .ds-grid .card-art { height: 110px !important; }
+  .game-search { width: 100%; }
 }
