@@ -1,0 +1,59 @@
+/* DonutSurge-like layout */
+.ds-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 0.85rem 1.5rem; flex-wrap: wrap;
+}
+.ds-header .logo {
+  font-family: Orbitron, sans-serif; font-weight: 900; font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+.ds-nav { display: flex; gap: 0.5rem; }
+.header-right { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.btn-login {
+  background: linear-gradient(135deg, #f5a623, #ffcc00) !important;
+  color: #111 !important; font-weight: 800; padding: 0.45rem 1.1rem !important;
+  border-radius: 8px !important; text-decoration: none;
+}
+.ds-lobby { max-width: 1100px !important; text-align: left !important; padding-top: 1.5rem !important; }
+.ds-hero {
+  font-size: 1.35rem; font-weight: 600; color: #e8e0ff; margin-bottom: 1.4rem;
+  font-family: Inter, system-ui, sans-serif;
+}
+.promo-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;
+}
+.promo-card {
+  background: linear-gradient(145deg, #2a1a4a, #1a1035);
+  border: 1px solid rgba(160,100,255,0.25);
+  border-radius: 16px; padding: 1.2rem 1.3rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 0.8rem;
+  min-height: 140px;
+}
+.promo-text h3 { font-size: 1.1rem; color: #fff; margin-bottom: 0.35rem; }
+.promo-text p { font-size: 0.85rem; color: #a89cc8; margin-bottom: 0.8rem; }
+.promo-btn {
+  background: linear-gradient(135deg, #f5a623, #ffcc00);
+  color: #111; border: none; font-weight: 700; padding: 0.45rem 1rem;
+  border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+}
+.promo-art { font-size: 2.8rem; filter: drop-shadow(0 0 12px rgba(255,200,0,0.35)); }
+.all-games-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem;
+}
+.all-games-head h2 { font-size: 1.15rem; color: #ffd700; font-family: Orbitron, sans-serif; }
+.game-search {
+  background: #1a1030; border: 1px solid rgba(160,100,255,0.3);
+  color: #eee; padding: 0.5rem 1rem; border-radius: 10px; width: 200px;
+}
+.ds-grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+}
+.ds-grid .card-name {
+  font-size: 0.85rem !important; letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.ds-grid .card-body { padding: 0.65rem 0.9rem 0.85rem !important; }
+@media (max-width: 800px) {
+  .promo-row { grid-template-columns: 1fr; }
+}
