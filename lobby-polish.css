@@ -31,9 +31,24 @@ header {
 .coinflip-art { background: radial-gradient(circle at 50% 60%, #4a3080, #1a0a30) !important; }
 .mines-art { background: linear-gradient(160deg, #3a2060, #1a1030) !important; }
 .crash-art { background: linear-gradient(160deg, #2a1850, #1a0a30) !important; }
-.tower-art, .limbo-art, .hilo-art, .plinko-art, .dice-art, .slots-art, .roulette-art, .bj-art, .ranks-art {
+.tower-art, .hilo-art, .plinko-art, .dice-art, .slots-art, .roulette-art, .bj-art, .ranks-art {
   background: linear-gradient(160deg, #3a2060, #1a0a30) !important;
 }
+/* Limbo — gold beam pillar like the art */
+.limbo-art {
+  background: radial-gradient(ellipse at 50% 80%, #2a1848, #120820) !important;
+  position: relative;
+}
+.limbo-art::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 18%; bottom: 22%;
+  width: 18px; margin-left: -9px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fff6a0, #ffd700 30%, #ff9a00 70%, #c47800);
+  box-shadow: 0 0 24px 8px rgba(255, 200, 0, 0.55), 0 0 48px 4px rgba(255, 160, 0, 0.35);
+}
+.limbo-art span { position: relative; z-index: 1; opacity: 0.85; }
 .neon-title {
   background: linear-gradient(90deg, #fff, #ffd700, #c44dff) !important;
   -webkit-background-clip: text !important;
@@ -68,4 +83,7 @@ nav a.active {
   background: linear-gradient(90deg, #fff, #ffd700) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
+}
+.limbo-mult {
+  text-shadow: 0 0 30px rgba(255, 200, 0, 0.5);
 }
