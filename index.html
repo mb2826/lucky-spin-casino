@@ -7,60 +7,82 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="games.css">
 <link rel="stylesheet" href="lobby-polish.css">
+<link rel="stylesheet" href="ds-layout.css">
 </head>
 <body>
 <div class="bg-overlay"></div>
 <div class="grid-lines"></div>
-<header>
-  <div class="logo">🎲 6-7 Casino</div>
-  <div class="rank-chip" id="rank-chip">
-    <span id="rank-icon">🥉</span>
-    <span id="rank-name">Bronze</span>
-    <div class="rank-xp-bar"><div id="rank-xp-fill"></div></div>
-  </div>
-  <div class="balance-bar">
-    <span class="bal-label">BALANCE</span>
-    <span id="balance">1000</span>
-    <span class="coin-icon">🪙</span>
-    <button id="add-credits" class="small-btn">+500</button>
-  </div>
-  <nav>
-    <a href="#" data-game="lobby" class="active">Lobby</a>
-    <a href="#" data-game="coinflip">Coin Flip</a>
-    <a href="#" data-game="mines">Mines</a>
-    <a href="#" data-game="crash">Crash</a>
-    <a href="#" data-game="dice">Dice</a>
-    <a href="#" data-game="limbo">Limbo</a>
-    <a href="#" data-game="tower">Tower</a>
-    <a href="#" data-game="hilo">Hi-Lo</a>
-    <a href="#" data-game="plinko">Plinko</a>
-    <a href="#" data-game="slots">Slots</a>
-    <a href="#" data-game="roulette">Roulette</a>
-    <a href="#" data-game="blackjack">Blackjack</a>
+<header class="ds-header">
+  <div class="logo">6-7 CASINO</div>
+  <nav class="ds-nav">
+    <a href="#" data-game="lobby" class="active">Games</a>
     <a href="#" data-game="ranks">Ranks</a>
-    <a href="#login" class="btn-login" id="open-login">Login</a>
   </nav>
+  <div class="header-right">
+    <div class="balance-bar">
+      <span class="bal-label">BALANCE</span>
+      <span id="balance">1000</span>
+      <span class="coin-icon">🪙</span>
+      <button id="add-credits" class="small-btn">+500</button>
+    </div>
+    <div class="rank-chip" id="rank-chip">
+      <span id="rank-icon">🥉</span>
+      <span id="rank-name">Bronze</span>
+      <div class="rank-xp-bar"><div id="rank-xp-fill"></div></div>
+    </div>
+    <a href="#login" class="btn-login" id="open-login">LOGIN</a>
+  </div>
 </header>
 
 <main>
-  <section id="game-lobby" class="game-panel active lobby-panel">
-    <div class="lobby-hero">
-      <h1 class="neon-title">6-7 Casino</h1>
-      <p class="subtitle">Provably fun. Instant play. Climb to Unreal.</p>
+  <section id="game-lobby" class="game-panel active lobby-panel ds-lobby">
+    <h1 class="ds-hero">6-7 Casino: the fun DonutSMP-style casino</h1>
+
+    <div class="promo-row">
+      <div class="promo-card promo-login">
+        <div class="promo-text">
+          <h3>Sign in to play</h3>
+          <p>One username · climb ranks</p>
+          <button class="promo-btn" id="promo-login">Log in</button>
+        </div>
+        <div class="promo-art">🏆</div>
+      </div>
+      <div class="promo-card promo-invite">
+        <div class="promo-text">
+          <h3>Invite a friend</h3>
+          <p>Get bonus on their deposits</p>
+          <button class="promo-btn">Log in to earn</button>
+        </div>
+        <div class="promo-art">📩📩</div>
+      </div>
+      <div class="promo-card promo-case">
+        <div class="promo-text">
+          <h3>Free daily case</h3>
+          <p>One free case every day</p>
+          <button class="promo-btn">Log in to open</button>
+        </div>
+        <div class="promo-art">🧰</div>
+      </div>
     </div>
-    <div class="game-grid" id="game-grid">
-      <button class="game-card" data-open="coinflip"><div class="card-art coinflip-art"><div class="art-coin">H</div></div><div class="card-body"><span class="card-name">Coin Flip</span><span class="card-desc">Heads or Tails · x2</span></div></button>
-      <button class="game-card" data-open="mines"><div class="card-art mines-art"><span style="font-size:2rem">💎</span><span style="font-size:1.4rem">⬛</span><span style="font-size:2rem">💎</span></div><div class="card-body"><span class="card-name">Mines</span><span class="card-desc">Tiles · gems · traps</span></div></button>
-      <button class="game-card" data-open="crash"><div class="card-art crash-art"><span style="font-size:2.5rem">🚀</span></div><div class="card-body"><span class="card-name">Crash</span><span class="card-desc">Cash out before boom</span></div></button>
-      <button class="game-card" data-open="dice"><div class="card-art dice-art"><span style="font-size:2.5rem">🎲</span></div><div class="card-body"><span class="card-name">Dice</span><span class="card-desc">Roll over / under</span></div></button>
-      <button class="game-card" data-open="limbo"><div class="card-art limbo-art"><span style="font-size:2.2rem">📦</span></div><div class="card-body"><span class="card-name">Limbo</span><span class="card-desc">Target multiplier</span></div></button>
-      <button class="game-card" data-open="tower"><div class="card-art tower-art"><span style="font-size:2.5rem">🗼</span></div><div class="card-body"><span class="card-name">Tower</span><span class="card-desc">Climb · avoid traps</span></div></button>
-      <button class="game-card" data-open="hilo"><div class="card-art hilo-art"><span style="font-size:1.8rem">🃏</span><span style="font-size:1.2rem">⬆⬇</span></div><div class="card-body"><span class="card-name">Hi-Lo</span><span class="card-desc">Higher or lower</span></div></button>
-      <button class="game-card" data-open="plinko"><div class="card-art plinko-art"><span style="font-size:2.2rem">📩</span></div><div class="card-body"><span class="card-name">Plinko</span><span class="card-desc">Drop · win coins</span></div></button>
-      <button class="game-card" data-open="slots"><div class="card-art slots-art"><span>🍒</span><span>7️⃣</span><span>💎</span></div><div class="card-body"><span class="card-name">Neon Reels</span><span class="card-desc">3-reel · jackpots</span></div></button>
-      <button class="game-card" data-open="roulette"><div class="card-art roulette-art"><div class="art-wheel"></div></div><div class="card-body"><span class="card-name">Roulette</span><span class="card-desc">European · red/black</span></div></button>
-      <button class="game-card" data-open="blackjack"><div class="card-art bj-art"><span class="mini-card">A♠</span><span class="mini-card red">K♥</span></div><div class="card-body"><span class="card-name">Blackjack</span><span class="card-desc">Beat the dealer · 21</span></div></button>
-      <button class="game-card" data-open="ranks"><div class="card-art ranks-art"><span style="font-size:2.5rem">🏆</span></div><div class="card-body"><span class="card-name">Rank Ladder</span><span class="card-desc">Bronze → Unreal</span></div></button>
+
+    <div class="all-games-head">
+      <h2>🎮 All Games</h2>
+      <input type="search" class="game-search" placeholder="Search games" id="game-search">
+    </div>
+
+    <div class="game-grid ds-grid" id="game-grid">
+      <button class="game-card" data-open="roulette" data-name="roulette"><div class="card-art roulette-art"><div class="art-wheel"></div></div><div class="card-body"><span class="card-name">ROULETTE</span></div></button>
+      <button class="game-card" data-open="mines" data-name="mines"><div class="card-art mines-art"><span>💎</span><span>⬛</span><span>💎</span></div><div class="card-body"><span class="card-name">MINES</span></div></button>
+      <button class="game-card" data-open="crash" data-name="crash"><div class="card-art crash-art"><span style="font-size:2.2rem">🚀</span></div><div class="card-body"><span class="card-name">CRASH</span></div></button>
+      <button class="game-card" data-open="tower" data-name="tower"><div class="card-art tower-art"><span style="font-size:2.2rem">🗼</span></div><div class="card-body"><span class="card-name">TOWER</span></div></button>
+      <button class="game-card" data-open="coinflip" data-name="coinflip"><div class="card-art coinflip-art"><div class="art-coin">H</div></div><div class="card-body"><span class="card-name">COINFLIP</span></div></button>
+      <button class="game-card" data-open="dice" data-name="dice"><div class="card-art dice-art"><span style="font-size:2.2rem">🎲</span></div><div class="card-body"><span class="card-name">DICE</span></div></button>
+      <button class="game-card" data-open="limbo" data-name="limbo"><div class="card-art limbo-art"><span>⚡</span></div><div class="card-body"><span class="card-name">LIMBO</span></div></button>
+      <button class="game-card" data-open="hilo" data-name="hilo"><div class="card-art hilo-art"><span>🃏</span><span>⬆⬇</span></div><div class="card-body"><span class="card-name">HI-LO</span></div></button>
+      <button class="game-card" data-open="plinko" data-name="plinko"><div class="card-art plinko-art"><span style="font-size:2rem">📩</span></div><div class="card-body"><span class="card-name">PLINKO</span></div></button>
+      <button class="game-card" data-open="slots" data-name="slots"><div class="card-art slots-art"><span>🍒</span><span>7️⃣</span><span>💎</span></div><div class="card-body"><span class="card-name">SLOTS</span></div></button>
+      <button class="game-card" data-open="blackjack" data-name="blackjack"><div class="card-art bj-art"><span class="mini-card">A♠</span><span class="mini-card red">K♥</span></div><div class="card-body"><span class="card-name">BLACKJACK</span></div></button>
+      <button class="game-card" data-open="ranks" data-name="ranks"><div class="card-art ranks-art"><span style="font-size:2.2rem">🏆</span></div><div class="card-body"><span class="card-name">RANKS</span></div></button>
     </div>
     <p class="lobby-foot">100€ or 100B DonutSMP at Unreal · cash coming soon</p>
   </section>
@@ -272,10 +294,31 @@
   document.querySelectorAll('.game-card[data-open]').forEach(card => {
     card.onclick = () => {
       const g = card.dataset.open;
-      const link = document.querySelector('nav a[data-game="'+g+'"]');
-      if (link) link.click();
+      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+      const panel = document.getElementById('game-' + g);
+      if (panel) panel.classList.add('active');
+      if (!localStorage.getItem('casino_user')) {
+        document.getElementById('login-modal').classList.add('open');
+      }
     };
   });
+  document.querySelectorAll('nav a[data-game]').forEach(a => {
+    a.onclick = e => {
+      e.preventDefault();
+      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+      const panel = document.getElementById('game-' + a.dataset.game);
+      if (panel) panel.classList.add('active');
+    };
+  });
+  const pl = document.getElementById('promo-login');
+  if (pl) pl.onclick = () => document.getElementById('login-modal').classList.add('open');
+  const search = document.getElementById('game-search');
+  if (search) search.oninput = () => {
+    const q = search.value.toLowerCase();
+    document.querySelectorAll('.game-card[data-name]').forEach(c => {
+      c.style.display = !q || c.dataset.name.includes(q) ? '' : 'none';
+    });
+  };
 })();
 </script>
 </body>
